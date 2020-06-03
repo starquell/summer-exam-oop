@@ -1,4 +1,6 @@
 #include "include/AllExam.hpp"
+#include "src/Trees/AVL/AVLTree.tpp"
+
 
 int main () {
 
