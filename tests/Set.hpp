@@ -23,5 +23,4 @@ TEST_CASE ("Set") {
     CHECK (set.difference(StledSet {3, 5, 6, 7}) == StledSet {1});
     CHECK (set.intersection(StledSet {3, 5, 6, 7}) == StledSet {3});
     CHECK (set.symmetric_difference(StledSet {3, 5, 6, 7}) == StledSet {1, 5, 6, 7});
-
 }

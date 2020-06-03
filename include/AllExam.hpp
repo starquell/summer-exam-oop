@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Random.hpp"
+
 #include "HashTables/Coalested.hpp"
 #include "HashTables/Quadratic.hpp"
 

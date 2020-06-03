@@ -7,6 +7,9 @@
 
 using namespace exam::tree;
 
+#include "Set.hpp"
+#include "Sorts.hpp"
+
 SCENARIO_TEMPLATE("Red-Black and Splay Tree", Tree,
         SplayTree<int, std::less<>>, RedBlackTree<int, std::less<>>, AVLTree<int, std::less<>>) {
     static constexpr std::array elems = {1, 4, 103, 2, 24};
