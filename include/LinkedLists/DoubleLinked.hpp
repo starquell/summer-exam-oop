@@ -19,12 +19,14 @@ namespace exam::lists {
         size_t _size = 0;
 
     public:
+
         class Iterator {
-            const DLLNode* currentNode;
+            friend class DoubleLinkedList;
+            DLLNode* currentNode;
             bool isEnd = false;
 
         public:
-            Iterator(const DLLNode* node, bool end = false) noexcept :
+            Iterator(DLLNode* node, bool end = false) noexcept :
                     currentNode (node) {
                 if (!node) {
                     isEnd = true;
@@ -72,7 +74,7 @@ namespace exam::lists {
             }
 
             bool operator!= (const Iterator& iterator) {
-                return (isEnd != iterator.isEnd) && currentNode != iterator.currentNode;
+                return (isEnd != iterator.isEnd) && (currentNode != iterator.currentNode);
             }
 
             bool operator== (const Iterator& iterator) {

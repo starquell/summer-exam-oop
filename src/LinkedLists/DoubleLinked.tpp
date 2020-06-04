@@ -36,24 +36,15 @@ namespace exam::lists {
                 _tail = inputNode;
             }
             _head = inputNode;
-
         } else if (iterator == end()) {
-            DLLNode* curr = _head;
-            while (curr->_next) {
-                curr = curr->_next;
-            }
-            curr->_next = inputNode;
-            inputNode->_prev = curr;
+            _tail->_next = inputNode;
+            inputNode->_prev = _tail;
             _tail = inputNode;
         } else {
-            DLLNode* curr = _head;
-            while (curr->_data != *iterator && curr->_next) {
-                curr = curr->_next;
-            }
-
-            inputNode->_next = curr;
-            inputNode->_prev = curr->_prev;
-            inputNode->_next->_prev = inputNode;
+            auto iterNode = iterator.currentNode;
+            inputNode->_next = iterNode;
+            inputNode->_prev = iterNode->_prev;
+            iterNode->_prev = inputNode;
             inputNode->_prev->_next = inputNode;
         }
         _size++;
