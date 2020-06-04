@@ -27,8 +27,7 @@ namespace exam::tree {
 
     template <typename T, typename Compare>
     template <typename Iter>
-    RedBlackTree<T, Compare>::RedBlackTree (Iter begin, Iter end)
-    {
+    RedBlackTree<T, Compare>::RedBlackTree (Iter begin, Iter end) {
         _root = nullptr;
         for (; begin != end; ++begin) {
             this->insert(*begin);
