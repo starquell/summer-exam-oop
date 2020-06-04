@@ -28,11 +28,7 @@ namespace exam::lists {
         public:
             Iterator(DLLNode* node, bool end = false) noexcept :
                     currentNode (node) {
-                if (!node) {
-                    isEnd = true;
-                } else {
-                    isEnd = end;
-                }
+                isEnd = !node ? true : end;
             }
 
             Iterator& operator= (DLLNode* node) {
@@ -81,7 +77,7 @@ namespace exam::lists {
                 return (isEnd == iterator.isEnd) && (currentNode == iterator.currentNode);
             }
 
-            T operator* () {
+            T& operator* () {
                 assert(!isEnd);
                 return currentNode->_data;
             }
@@ -92,6 +88,10 @@ namespace exam::lists {
         template <typename Iter>
         DoubleLinkedList(Iter begin, Iter end);
 
+        DoubleLinkedList(const DoubleLinkedList<T>& other);
+
+        DoubleLinkedList& operator= (const DoubleLinkedList& other);
+
         Iterator begin();
 
         Iterator end();
@@ -100,7 +100,7 @@ namespace exam::lists {
 
         void erase(const T& data);
 
-        size_t size();
+        size_t size() const;
 
         ~DoubleLinkedList();
     };

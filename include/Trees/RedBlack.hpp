@@ -65,3 +65,4 @@ namespace exam::tree {
 }
 
 #include "../../src/Trees/RedBlack/RedBlackTree.tpp"
+#include "../../src/Trees/NodeBase.hpp"

@@ -1,11 +1,12 @@
 #pragma once
 
-#include <NodeUtilities.hpp>
+#include "../NodeUtilities.hpp"
+#include "../NodeBase.hpp"
 
 #include <algorithm>
 #include <utility>
 #include <cassert>
-#include "NodeBase.hpp"
+
 
 /**
  *  @brief Set of functions and classes that implement algorithms for Splay Tree

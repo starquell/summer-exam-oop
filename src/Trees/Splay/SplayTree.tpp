@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Splayer.hpp>
-#include "NodeBase.hpp"
+#include "Splayer.hpp"
+#include "../NodeBase.hpp"
 
 namespace exam::tree {
 

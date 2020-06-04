@@ -25,6 +25,34 @@ namespace exam::lists {
             insert(*_begin, end());
         }
     }
+
+    template <typename T>
+    DoubleLinkedList<T>::DoubleLinkedList(const DoubleLinkedList<T>& other) {
+        auto curr = other._head;
+        while (curr) {
+            insert(curr->_data, end());
+            curr = curr->_next;
+        }
+    }
+
+    template<typename T>
+    DoubleLinkedList<T>&
+    DoubleLinkedList<T>::operator= (const DoubleLinkedList& other) {
+        if (&other == this) {
+            return *this;
+        }
+
+        _head = nullptr;
+        _tail = nullptr;
+        auto curr = other._head;
+        while (curr) {
+            insert(curr->_data, end());
+            curr = curr->_next;
+        }
+        _size = other._size;
+
+        return *this;
+    }
     template <typename T>
     void DoubleLinkedList<T>::insert(const T& data, Iterator iterator) {
         DLLNode* inputNode = new DLLNode(data);
@@ -73,7 +101,7 @@ namespace exam::lists {
     }
 
     template <typename T>
-    size_t DoubleLinkedList<T>::size() {
+    size_t DoubleLinkedList<T>::size() const {
         return _size;
     }
 

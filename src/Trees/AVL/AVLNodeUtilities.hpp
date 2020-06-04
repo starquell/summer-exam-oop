@@ -4,8 +4,9 @@ namespace exam::tree::detail::avlutils {
 
     template<typename AVLNode>
     int height(AVLNode* node) {
-        if (node == nullptr)
+        if (node == nullptr) {
             return 0;
+        }
         return node->height;
     }
 
