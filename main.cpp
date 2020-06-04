@@ -1,4 +1,3 @@
-#include "include/AllExam.hpp"
 
 int main () {
 
