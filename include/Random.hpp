@@ -3,6 +3,8 @@
 #include "../src/Random.hpp"
 #include "../src/TypeTraits.hpp"
 
+#include <stdexcept>
+
 namespace exam {
 
     /**
@@ -33,6 +35,9 @@ namespace exam {
         }
         else if constexpr (detail::has_insert<T>) {
             return impl::random_insertable<T>(std::forward<Args>(args)...);
+        }
+        else {
+            static_assert(detail::always_false<T>);
         }
     }
 }

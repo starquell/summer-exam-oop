@@ -37,5 +37,8 @@ namespace exam::detail {
             decltype(std::declval<T>().reverse(std::declval<typename T::size_type>()))
     >> = true;
 
+    template <typename...>
+    inline constexpr auto always_false = false;
+
 }
 
