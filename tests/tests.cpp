@@ -5,5 +5,5 @@
 #include "Sorts.hpp"
 #include "HashTables.hpp"
 #include "Trees.hpp"
-#include "LIsts.hpp"
+#include "Lists.hpp"
 

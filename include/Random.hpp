@@ -18,20 +18,24 @@ namespace exam {
     auto random (Args&&... args) -> T
     {
 
-        if constexpr (std::is_integral_v<T>) {
+        if constexpr (std::is_same_v<T, char>) {
+            return impl::random_char(std::forward<Args>(args)...);
+        }
+        else if constexpr (std::is_integral_v<T>) {
             return impl::random_integral<T>(std::forward<Args>(args)...);
         }
         else if constexpr (std::is_floating_point_v<T>) {
             return impl::random_floating<T>(std::forward<Args>(args)...);
         }
-        else if constexpr (std::is_same_v<T, char>) {
-            return impl::random_char(std::forward<Args>(args)...);
+        else if constexpr (detail::is_static_container<T>) {
+            return impl::random_static_container<T, detail::size_of_static_container<T>>
+                    (std::forward<Args>(args)...);
         }
-        else if constexpr (detail::is_container<T>) {
-            return impl::random_container<T>(std::forward<Args>(args)...);
+        else if constexpr (detail::is_dynamic_container<T>) {
+            return impl::random_dynamic_container<T>(std::forward<Args>(args)...);
         }
         else {
-            static_assert(detail::always_false<T>);
+            static_assert(detail::always_false<T>, "Random is not implemented for this type");
         }
     }
 }

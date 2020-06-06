@@ -28,13 +28,45 @@ namespace exam::detail {
     >> = true;
 
     template <typename T, typename = void>
-    inline constexpr bool is_container = false;
+    inline constexpr bool is_container = std::is_array_v<T>;
 
     template <typename T>
-    inline constexpr bool is_container <T, std::void_t<
+    inline constexpr bool is_container <T,
+            std::void_t<
                 std::void_t<typename T::value_type>,
                 std::void_t<decltype(std::declval<T>().begin())>,
-                std::void_t<decltype(std::declval<T>().end())>>> = true;
+                std::void_t<decltype(std::declval<T>().end())>>
+                            > = true;
+
+    template <typename T, typename = void>
+    inline constexpr bool is_static_container = false;
+
+    template <template <typename, std::size_t> typename T, typename ValueType, std::size_t N>
+    inline constexpr bool is_static_container <T<ValueType, N>> = is_container<T<ValueType, N>>;
+
+    template <typename T, std::size_t N>
+    inline constexpr bool is_static_container <T[N]> = true;
+
+    template <typename T>
+    inline constexpr bool size_of_static_container = false;
+
+    template <template <typename, std::size_t> typename T, typename ValueType, std::size_t N>
+    inline constexpr std::size_t size_of_static_container <T<ValueType, N>> = N;
+
+    template <typename T, std::size_t N>
+    inline constexpr std::size_t size_of_static_container <T[N]> = N;
+
+
+    template <typename T>
+    inline constexpr bool is_dynamic_container = is_container<T> && !is_static_container<T>;
+
+    template <typename Container, typename = void>
+    inline constexpr bool is_random_index_assignable = false;
+
+    template <typename Container>
+    inline constexpr bool is_random_index_assignable<Container, std::void_t<
+            std::is_same<decltype(std::declval<Container>().operator[](std::declval<typename Container::size_type>())),
+                         typename Container::reference>>> = true;
 
 
     template<typename T, typename = void>
@@ -42,7 +74,7 @@ namespace exam::detail {
 
     template<typename T>
     inline constexpr bool is_reservable<T, std::void_t<
-            decltype(std::declval<T>().reverse(std::declval<typename T::size_type>()))
+            decltype(std::declval<T>().reserve(std::declval<typename T::size_type>()))
     >> = true;
 
     template <typename...>
