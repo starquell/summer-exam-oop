@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cassert"
+#include <cassert>
 
 namespace exam::lists {
 
@@ -11,7 +11,7 @@ namespace exam::lists {
             DLLNode* _next = nullptr;
             DLLNode* _prev = nullptr;
 
-            DLLNode(T data) : _data(data) {}
+            DLLNode(const T& data) : _data(data) {}
         };
 
         DLLNode* _head = nullptr;
@@ -26,7 +26,7 @@ namespace exam::lists {
             bool isEnd = false;
 
         public:
-            Iterator(DLLNode* node, bool end = false) noexcept :
+            explicit Iterator(DLLNode* node, bool end = false) noexcept :
                     currentNode (node) {
                 isEnd = !node ? true : end;
             }
@@ -83,6 +83,10 @@ namespace exam::lists {
             }
         };
 
+        using value_type = T;
+
+        explicit DoubleLinkedList() = default;
+
         DoubleLinkedList(std::initializer_list<T> elems);
 
         template <typename Iter>
@@ -100,6 +104,7 @@ namespace exam::lists {
 
         void erase(const T& data);
 
+        [[nodiscard]]
         size_t size() const;
 
         ~DoubleLinkedList();

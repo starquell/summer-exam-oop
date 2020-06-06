@@ -1,8 +1,11 @@
 #pragma once
 
+#include "../Random.hpp"
+
 #include <string>
 #include <string_view>
 #include <algorithm>
+#include <array>
 
 namespace exam::subject {
 
@@ -28,6 +31,11 @@ namespace exam::subject {
 
         Department (std::initializer_list<Worker> workers)
             : _workers {workers}
+        {}
+
+        template <typename Iter>
+        Department (Iter begin, Iter end)
+            : _workers (begin, end)
         {}
 
         [[nodiscard]]
@@ -61,6 +69,12 @@ namespace exam::subject {
              : _departments {departments}
         {}
 
+        template <typename Iter>
+        Organization (Iter begin, Iter end)
+             : _departments (begin, end)
+        {}
+
+
         [[nodiscard]]
         auto name() const noexcept -> const std::string&
         {
@@ -93,6 +107,11 @@ namespace exam::subject {
 
         Ministry (std::initializer_list<Organization> organizations)
         :  _organizations {organizations}
+        {}
+
+        template <typename Iter>
+        Ministry (Iter begin, Iter end)
+             : _organizations (begin, end)
         {}
 
         [[nodiscard]]
@@ -183,6 +202,58 @@ namespace exam::subject {
                && lhs.name() == rhs.name();
     }
 }
+
+namespace exam {
+
+    template <>
+    auto random <subject::Worker>() -> subject::Worker
+    {
+        static constexpr std::array names = {
+                "Danya",
+                "Pikachu",
+                "Olexiy",
+                "Den",
+                "Vasya",
+                "Liza",
+                "Ostap",
+                "Max"
+        };
+        return subject::Worker{names[random<std::size_t>(0, names.size() - 1)]};
+    }
+
+    template <>
+    auto random <subject::Department>() -> subject::Department
+    {
+        const auto amount_of_workers = random <std::size_t> (1, 10);
+        auto workers = random <std::vector<subject::Worker>> (amount_of_workers);
+
+        return subject::Department (std::make_move_iterator(workers.begin()),
+                                    std::make_move_iterator(workers.end()));
+    }
+
+    template <>
+    auto random <subject::Organization>() -> subject::Organization
+    {
+        const auto amount_of_departs = random <std::size_t> (1, 5);
+        auto departs = random <std::vector<subject::Department>> (amount_of_departs);
+
+        return subject::Organization (std::make_move_iterator(departs.begin()),
+                                      std::make_move_iterator(departs.end()));
+    }
+
+    template <>
+    auto random <subject::Ministry>() -> subject::Ministry
+    {
+        const auto amount_of_orgs = random <std::size_t> (1, 5);
+        auto orgs = random <std::vector<subject::Organization>> (amount_of_orgs);
+
+        return subject::Ministry (std::make_move_iterator(orgs.begin()),
+                                  std::make_move_iterator(orgs.end()));
+    }
+}
+
+
+
 
 namespace std {
     template <> struct hash<exam::subject::Worker>

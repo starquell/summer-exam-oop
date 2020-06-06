@@ -6,7 +6,6 @@
 #include <vector>
 #include <random>
 #include <string>
-#include <type_traits>
 #include <limits>
 #include <algorithm>
 
@@ -50,28 +49,55 @@ namespace exam {
             return str;
         }
 
-        template <typename Container, typename T = typename Container::value_type>
-        auto random_push_backable (std::size_t size, const T& min, const T& max) -> Container
+        template <typename Container, typename... Args>
+        auto random_push_backable (std::size_t size, Args&&... range) -> Container
         {
+            static_assert((std::is_same_v<typename Container::value_type, Args> && ...));
+
             Container cont;
             if constexpr (detail::is_reservable<Container>) {
                 cont.reserve(size);
             }
             for (auto i = 0; i < size; ++i) {
-                cont.push_back(random<T>(min, max));
+                cont.push_back(random<typename Container::value_type>(std::forward<Args>(range)...));
             }
             return cont;
         }
 
-        template <typename Container, typename T = typename Container::value_type>
-        auto random_insertable (std::size_t size, const T& min, const T& max) -> Container
+        template <typename Container, typename... Args>
+        auto random_insertable (std::size_t size, Args&&... range) -> Container
         {
+            static_assert((std::is_same_v<typename Container::value_type, Args> && ...));
+
             Container cont;
             for (auto i = 0; i < size; ++i) {
-                cont.insert(random<T>(min, max));
+                cont.insert(random<typename Container::value_type>(std::forward<Args>(range)...));
             }
             return cont;
         }
+
+        template <typename Container, typename... Args>
+        auto random_container (std::size_t size, Args&&... range) -> Container
+        {
+            static_assert((std::is_same_v<typename Container::value_type, Args> && ...));
+
+            if constexpr (std::is_same_v<Container, std::string>) {
+                return random_string(size, std::forward<Args>(range)...);
+            }
+            else if constexpr (detail::has_push_back<Container>) {
+                return random_push_backable<Container>(size, std::forward<Args>(range)...);
+            }
+            else if constexpr (detail::has_insert<Container>) {
+                return random_insertable<Container>(size, std::forward<Args>(range)...);
+            }
+            else {
+                static_assert(detail::always_false<Container>);
+            }
+        }
+
+
+
+
 
 
 

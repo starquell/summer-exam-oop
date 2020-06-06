@@ -24,6 +24,12 @@ namespace exam::hashtable {
 
         class Iterator {
         public:
+
+            using difference_type = std::ptrdiff_t;
+            using value_type = const Key&;
+            using reference = value_type&;
+            using iterator_caterogy = std::forward_iterator_tag;
+
             explicit Iterator(const std::array<Node, Size>& elem, std::size_t index);
 
             auto operator++ () -> Iterator&;

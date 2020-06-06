@@ -19,22 +19,16 @@ namespace exam {
     {
 
         if constexpr (std::is_integral_v<T>) {
-            return impl::random_integral(std::forward<Args>(args)...);
+            return impl::random_integral<T>(std::forward<Args>(args)...);
         }
         else if constexpr (std::is_floating_point_v<T>) {
-            return impl::random_floating(std::forward<Args>(args)...);
+            return impl::random_floating<T>(std::forward<Args>(args)...);
         }
         else if constexpr (std::is_same_v<T, char>) {
             return impl::random_char(std::forward<Args>(args)...);
         }
-        else if constexpr (std::is_same_v<T, std::string>) {
-            return impl::random_string(std::forward<Args>(args)...);
-        }
-        else if constexpr (detail::has_push_back<T>) {
-            return impl::random_push_backable<T>(std::forward<Args>(args)...);
-        }
-        else if constexpr (detail::has_insert<T>) {
-            return impl::random_insertable<T>(std::forward<Args>(args)...);
+        else if constexpr (detail::is_container<T>) {
+            return impl::random_container<T>(std::forward<Args>(args)...);
         }
         else {
             static_assert(detail::always_false<T>);

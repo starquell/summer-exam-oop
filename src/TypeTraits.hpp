@@ -4,14 +4,12 @@
 
 namespace exam::detail {
 
+
     template <typename InputType, template<typename...> typename Template>
-    struct is_template_instantiation_t : std::false_type {};
+    inline constexpr bool is_template_instantiation = false;
 
     template <typename... InputParams, template<typename...> typename Template>
-    struct is_template_instantiation_t <Template <InputParams...>, Template> : std::true_type {};
-
-    template <typename InputType, template<typename...> typename Template>
-    constexpr inline bool is_template_instantiation = is_template_instantiation_t<InputType, Template>::value;
+    inline constexpr bool is_template_instantiation <Template <InputParams...>, Template> = true;
 
     template <typename T, typename = void>
     inline constexpr bool has_push_back = false;
@@ -28,6 +26,16 @@ namespace exam::detail {
     inline constexpr auto has_insert<T, std::void_t<
             decltype(std::declval<T>().insert(std::declval<typename T::value_type>()))
     >> = true;
+
+    template <typename T, typename = void>
+    inline constexpr bool is_container = false;
+
+    template <typename T>
+    inline constexpr bool is_container <T, std::void_t<
+                std::void_t<typename T::value_type>,
+                std::void_t<decltype(std::declval<T>().begin())>,
+                std::void_t<decltype(std::declval<T>().end())>>> = true;
+
 
     template<typename T, typename = void>
     inline constexpr bool is_reservable = false;
