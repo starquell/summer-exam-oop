@@ -5,6 +5,13 @@
 
 namespace exam {
 
+    /**
+     *  @brief Generates random T object
+     *  @param size (optional) For container types
+     *  @param min Min value of random object
+     *  @param max Max value of random object
+     */
+
     template <typename T, typename... Args>
     auto random (Args&&... args) -> T
     {

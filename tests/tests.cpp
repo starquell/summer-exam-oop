@@ -9,6 +9,7 @@ using namespace exam::tree;
 
 #include "Set.hpp"
 #include "Sorts.hpp"
+#include "HashTables.hpp"
 
 SCENARIO_TEMPLATE("Red-Black and Splay Tree", Tree,
         SplayTree<int, std::less<>>, RedBlackTree<int, std::less<>>, AVLTree<int, std::less<>>) {

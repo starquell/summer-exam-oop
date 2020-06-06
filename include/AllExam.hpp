@@ -2,7 +2,7 @@
 
 #include "Random.hpp"
 
-#include "HashTables/Coalested.hpp"
+#include "HashTables/StaticCoalested.hpp"
 #include "HashTables/Quadratic.hpp"
 
 #include "Sorts/Bucket.hpp"
