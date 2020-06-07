@@ -1,6 +1,8 @@
 #pragma once
 
-#include "HashTables/Coalested.hpp"
+#include "Random.hpp"
+
+#include "HashTables/StaticCoalested.hpp"
 #include "HashTables/Quadratic.hpp"
 
 #include "Sorts/Bucket.hpp"
@@ -10,6 +12,9 @@
 #include "Sorts/Merge.hpp"
 #include "Sorts/Radix.hpp"
 #include "Sorts/Selection.hpp"
+
+#include "LinkedLists/Cyclic.hpp"
+#include "LinkedLists/DoubleLinked.hpp"
 
 #include "Subjects/Book.hpp"
 #include "Subjects/Organization.hpp"

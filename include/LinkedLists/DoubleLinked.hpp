@@ -12,7 +12,7 @@ namespace exam::lists {
             DLLNode* _next = nullptr;
             DLLNode* _prev = nullptr;
 
-            DLLNode(T data) : _data(data) {}
+            DLLNode(const T& data) : _data(data) {}
         };
 
         DLLNode* _head = nullptr;
@@ -21,6 +21,10 @@ namespace exam::lists {
 
     public:
         using Iterator = detail::ListBidirectIterator<DLLNode*, T, DoubleLinkedList>;
+
+        using value_type = T;
+
+        explicit DoubleLinkedList() = default;
 
         DoubleLinkedList(std::initializer_list<T> elems);
 
@@ -39,6 +43,7 @@ namespace exam::lists {
 
         void erase(const T& data);
 
+        [[nodiscard]]
         size_t size() const;
 
         ~DoubleLinkedList();

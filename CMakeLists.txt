@@ -20,6 +20,7 @@ option(BUILD_GUI ON)
 include_directories(${THIRD_PARTY_DIR})
 
 if(BUILD_TESTS)
+    enable_testing()
     add_subdirectory(${TESTS_DIR})
 endif()
 

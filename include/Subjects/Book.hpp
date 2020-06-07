@@ -1,3 +1,7 @@
 #pragma once
 
-namespace exam::subject {}
+namespace exam::subject {
+
+
+
+}
