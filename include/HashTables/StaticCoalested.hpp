@@ -27,16 +27,18 @@ namespace exam::hashtable {
 
             using difference_type = std::ptrdiff_t;
             using value_type = const Key&;
+            using pointer = const Key*;
             using reference = value_type&;
-            using iterator_caterogy = std::forward_iterator_tag;
+            using iterator_category = std::forward_iterator_tag;
 
-            explicit Iterator(const std::array<Node, Size>& elem, std::size_t index);
+            explicit Iterator(const std::array<Node, Size>& elem, std::size_t index) noexcept;
 
-            auto operator++ () -> Iterator&;
+            auto operator++ () noexcept -> Iterator&;
 
-            auto operator* () -> const Key&;
+            auto operator* () const noexcept -> const Key&;
 
-            auto operator != (const Iterator& other) -> bool;
+            auto operator == (const Iterator& other) const noexcept -> bool;
+            auto operator != (const Iterator& other) const noexcept -> bool;
 
         private:
             template <typename _Key,
@@ -55,12 +57,12 @@ namespace exam::hashtable {
         using iterator = Iterator;
         using const_iterator = Iterator;
 
-        explicit StaticCoalestedHashTable() = default;
+        explicit StaticCoalestedHashTable() noexcept = default;
 
-        StaticCoalestedHashTable(std::initializer_list<Key> list);
+        StaticCoalestedHashTable(std::initializer_list<Key> list) noexcept;
 
         template<typename Iter>
-        StaticCoalestedHashTable (Iter begin, Iter end);
+        StaticCoalestedHashTable (Iter begin, Iter end) noexcept;
 
         StaticCoalestedHashTable(const StaticCoalestedHashTable& other) = default;
         StaticCoalestedHashTable(StaticCoalestedHashTable&& other) noexcept = default;
@@ -69,13 +71,15 @@ namespace exam::hashtable {
         StaticCoalestedHashTable& operator= (StaticCoalestedHashTable&& other) noexcept = default;
 
 
-        auto insert (const Key& value) -> Iterator;
+        auto insert (const value_type & value) noexcept -> Iterator;
 
-        void erase (const Key& value);
+        void erase (const value_type& value);
 
-        auto find (const Key& value) -> Iterator;
+        auto find (const value_type& value) const noexcept -> Iterator;
 
         auto size() const noexcept -> size_type;
+
+        constexpr static auto max_size() noexcept -> size_type;
 
         auto begin() const noexcept -> Iterator;
 
@@ -83,17 +87,21 @@ namespace exam::hashtable {
 
     private:
 
-        auto insert_hint (const Key& value, Iterator last_in_chain) -> Iterator;
+        auto _hash (const value_type& value);
 
         struct Node {
             std::optional<Key> value;
-            std::optional<size_type> next;
+            std::optional<typename std::array<Node, Size>::const_iterator> next;
+
+            auto operator== (const Node& other) const noexcept -> bool;
         };
 
         std::array<Node, Size> _nodes;
         size_type _size{};
         Hash _hashfunc{};
     };
+
+
 
 
 }

@@ -2,14 +2,15 @@
 
 #include "../../include/HashTables/StaticCoalested.hpp"
 
+#include <cassert>
+
 namespace exam::hashtable {
 
     template <typename Key,
              std::size_t Size,
               typename Hash>
-    StaticCoalestedHashTable<Key, Size, Hash>::StaticCoalestedHashTable(std::initializer_list<Key> list)
+    StaticCoalestedHashTable<Key, Size, Hash>::StaticCoalestedHashTable(std::initializer_list<Key> list) noexcept
     {
-
         for (const auto& elem : list) {
             insert(elem);
         }
@@ -19,7 +20,7 @@ namespace exam::hashtable {
              std::size_t Size,
              typename Hash>
     template<typename Iter>
-    StaticCoalestedHashTable<Key, Size, Hash>::StaticCoalestedHashTable(Iter begin, Iter end)
+    StaticCoalestedHashTable<Key, Size, Hash>::StaticCoalestedHashTable(Iter begin, Iter end) noexcept
     {
         for (; begin != end; ++begin) {
             insert(*begin);
@@ -29,9 +30,9 @@ namespace exam::hashtable {
     template <typename Key,
               std::size_t Size,
               typename Hash>
-    auto StaticCoalestedHashTable<Key, Size, Hash>::insert(const Key &value) -> StaticCoalestedHashTable::Iterator
+    auto StaticCoalestedHashTable<Key, Size, Hash>::insert(const Key &value) noexcept -> StaticCoalestedHashTable::Iterator
     {
-        auto pos = _hashfunc(value) % Size;
+        auto pos = _hash(value);
         bool inserted = false;
 
         if (_nodes[pos].value) {
@@ -48,7 +49,7 @@ namespace exam::hashtable {
                 }
             }
 
-            for (auto i = pos - 1; i >= 0; --i) {
+            for (int32_t i = Size - 1; i >= 0; --i) {
                 if (!_nodes[i].value) {
                     _nodes[pos].next = i;
                     _nodes[i].value = value;
@@ -65,6 +66,7 @@ namespace exam::hashtable {
         ++_size;
         return inserted ? Iterator{_nodes, pos}
                         : Iterator {_nodes, _nodes.size()};
+
     }
 
     template <typename Key,
@@ -80,7 +82,6 @@ namespace exam::hashtable {
                 prev = pos;
                 pos = *_nodes[pos].next;
             }
-
             else {
                 return;
             }
@@ -88,56 +89,50 @@ namespace exam::hashtable {
         if (!_nodes[pos].value) {
             return;
         }
-        _nodes[pos].value = std::nullopt;
-        if (prev != pos) {
-            _nodes[prev].next = _nodes[pos].next;
+
+        std::vector<value_type> to_reinsert;
+
+        auto elem_to_reinsert = _nodes[pos].next;
+
+        {
+            _nodes[pos].value = std::nullopt;
+            _nodes[pos].next = std::nullopt;
+            _nodes[prev].next = std::nullopt;
         }
-        _nodes[pos].next = std::nullopt;
+
+        while (elem_to_reinsert) {
+            to_reinsert.push_back(*_nodes[*elem_to_reinsert].value);
+            _nodes[*elem_to_reinsert].value = std::nullopt;
+            elem_to_reinsert = std::exchange(_nodes[*elem_to_reinsert].next, std::nullopt);
+        }
+
+        for (const auto& elem : to_reinsert) {
+            insert(elem);
+            --_size;
+        }
+
         --_size;
     }
 
     template <typename Key,
               std::size_t Size,
               typename Hash>
-    auto StaticCoalestedHashTable<Key, Size, Hash>::find(const Key &value) -> StaticCoalestedHashTable::Iterator
+    auto StaticCoalestedHashTable<Key, Size, Hash>::find(const Key &value) const noexcept -> StaticCoalestedHashTable::Iterator
     {
-        const auto pos = _hashfunc(value) % Size;
+        auto pos = _hashfunc(value) % Size;
 
         while (_nodes[pos].value && *_nodes[pos].value != value) {
             if (_nodes[pos].next) {
                 pos = *_nodes[pos].next;
             }
             else {
-                return Iterator {_nodes.cend()};
+                return Iterator {_nodes, _nodes.size()};
             }
         }
-        return Iterator{_nodes.cbegin() + pos};
+        return _nodes[pos].value ? Iterator{_nodes, pos}
+                                 : Iterator{_nodes, _nodes.size()};
     }
 
-    template <typename Key,
-              std::size_t Size,
-              typename Hash>
-    auto StaticCoalestedHashTable<Key, Size, Hash>::
-            insert_hint(const Key &value, StaticCoalestedHashTable::Iterator last_in_chain) -> StaticCoalestedHashTable::Iterator
-
-    {
-        const auto pos = last_in_chain._elem - _nodes.begin();
-
-        bool inserted = false;
-
-        for (auto i = pos - 1; i >= 0; --i) {
-            if (!_nodes[i].value) {
-                *_nodes[pos].next = i;
-                *_nodes[i].value = value;
-                pos = i;
-                inserted = true;
-                break;
-            }
-        }
-
-        return inserted ? Iterator {_nodes.cbegin() + pos}
-                        : Iterator {_nodes.cend()};
-    }
 
     template<typename Key, std::size_t Size, typename Hash>
     auto StaticCoalestedHashTable<Key, Size, Hash>::size() const noexcept -> StaticCoalestedHashTable::size_type
@@ -158,8 +153,18 @@ namespace exam::hashtable {
     }
 
     template<typename Key, std::size_t Size, typename Hash>
+    constexpr auto StaticCoalestedHashTable<Key, Size, Hash>::max_size() noexcept -> StaticCoalestedHashTable::size_type {
+        return Size;
+    }
+
+    template<typename Key, std::size_t Size, typename Hash>
+    auto StaticCoalestedHashTable<Key, Size, Hash>::_hash(const value_type &value) {
+        return _hashfunc(value) % Size;
+    }
+
+    template<typename Key, std::size_t Size, typename Hash>
     StaticCoalestedHashTable<Key, Size, Hash>::Iterator::Iterator(const std::array<
-            StaticCoalestedHashTable<Key, Size, Hash>::Node, Size>& nodes, std::size_t index)
+            StaticCoalestedHashTable<Key, Size, Hash>::Node, Size>& nodes, std::size_t index) noexcept
             : _nodes (nodes),
               _curr (nodes.cbegin() + index)
     {
@@ -169,7 +174,7 @@ namespace exam::hashtable {
     }
 
     template<typename Key, std::size_t Size, typename Hash>
-    auto StaticCoalestedHashTable<Key, Size, Hash>::Iterator::operator++() -> StaticCoalestedHashTable::Iterator&
+    auto StaticCoalestedHashTable<Key, Size, Hash>::Iterator::operator++() noexcept -> StaticCoalestedHashTable::Iterator&
     {
         do {
             ++_curr;
@@ -179,15 +184,29 @@ namespace exam::hashtable {
     }
 
     template<typename Key, std::size_t Size, typename Hash>
-    auto StaticCoalestedHashTable<Key, Size, Hash>::Iterator::operator*() -> const Key &
+    auto StaticCoalestedHashTable<Key, Size, Hash>::Iterator::operator*() const noexcept -> const Key &
     {
         return *_curr->value;
     }
 
+
+    template<typename Key, std::size_t Size, typename Hash>
+    auto StaticCoalestedHashTable<Key, Size, Hash>::Iterator::operator==(
+            const StaticCoalestedHashTable::Iterator &other) const noexcept -> bool
+            {
+        return &_nodes == &other._nodes && _curr == other._curr;
+    }
+
     template<typename Key, std::size_t Size, typename Hash>
     auto StaticCoalestedHashTable<Key, Size, Hash>::Iterator::
-            operator!= (const StaticCoalestedHashTable<Key, Size, Hash>::Iterator& other) -> bool
+            operator!= (const StaticCoalestedHashTable<Key, Size, Hash>::Iterator& other) const noexcept -> bool
     {
-        return _curr != other._curr;
+        return !(*this == other);
+    }
+
+    template<typename Key, std::size_t Size, typename Hash>
+    auto StaticCoalestedHashTable<Key, Size, Hash>::Node::operator==(
+            const StaticCoalestedHashTable::Node &other) const noexcept -> bool {
+        return value == other.value && next == other.next;
     }
 }
