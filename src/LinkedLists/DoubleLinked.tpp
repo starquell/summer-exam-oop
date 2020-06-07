@@ -113,7 +113,5 @@ namespace exam::lists {
             delete curr;
             curr = next;
         }
-        _head = nullptr;
-        _tail = nullptr;
     }
 }
