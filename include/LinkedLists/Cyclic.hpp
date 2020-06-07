@@ -10,7 +10,7 @@ namespace exam::lists {
             T _data;
             SLLNode* _next = nullptr;
 
-            SLLNode(T data) : _data(data) {}
+            SLLNode(const T& data) : _data(data) {}
         };
 
         SLLNode* _head = nullptr;
@@ -19,6 +19,10 @@ namespace exam::lists {
 
     public:
         using Iterator = detail::CyclicForwardIterator<SLLNode*, T, CyclicLinkedList>;
+
+        using value_type = T;
+
+        explicit CyclicLinkedList() = default;
 
         CyclicLinkedList(std::initializer_list<T> elems);
 
@@ -34,6 +38,7 @@ namespace exam::lists {
 
         void erase(const T& data);
 
+        [[nodiscard]]
         size_t size();
 
         ~CyclicLinkedList();

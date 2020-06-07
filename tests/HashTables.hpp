@@ -8,7 +8,5 @@ using namespace exam::hashtable;
 SCENARIO_TEMPLATE ("Hash tables", HashTable,
         StaticCoalestedHashTable<int, 100>)
 {
-    auto table = exam::random<HashTable>
-
 
 }
