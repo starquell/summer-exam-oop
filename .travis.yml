@@ -40,6 +40,7 @@ script:
   - export CC=gcc-9
   - export CXX=g++-9
   - gcc -v && g++ -v && cmake --version
+  - cd tests
   - mkdir build
   - cd build
   - cmake .. -DCMAKE_BUILD_TYPE=$BUILD_CONFIGURATION -DTARGET_CPU=$TARGET_CPU

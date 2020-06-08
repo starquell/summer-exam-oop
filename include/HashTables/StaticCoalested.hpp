@@ -9,7 +9,6 @@ namespace exam::hashtable {
      *  @brief Class representing Coalested Hash Table stored on stack
      *
      *  @param Key Type of values stored in table
-     *  @param storage Storage type
      *  @param Hash Hash function used for hashing keys
      *  @param Size Size of table for static storage
      */
@@ -27,16 +26,18 @@ namespace exam::hashtable {
 
             using difference_type = std::ptrdiff_t;
             using value_type = const Key&;
+            using pointer = const Key*;
             using reference = value_type&;
-            using iterator_caterogy = std::forward_iterator_tag;
+            using iterator_category = std::forward_iterator_tag;
 
-            explicit Iterator(const std::array<Node, Size>& elem, std::size_t index);
+            explicit Iterator(const std::array<Node, Size>& elem, std::size_t index) noexcept;
 
-            auto operator++ () -> Iterator&;
+            auto operator++ () noexcept -> Iterator&;
 
-            auto operator* () -> const Key&;
+            auto operator* () const noexcept -> const Key&;
 
-            auto operator != (const Iterator& other) -> bool;
+            auto operator == (const Iterator& other) const noexcept -> bool;
+            auto operator != (const Iterator& other) const noexcept -> bool;
 
         private:
             template <typename _Key,
@@ -55,12 +56,12 @@ namespace exam::hashtable {
         using iterator = Iterator;
         using const_iterator = Iterator;
 
-        explicit StaticCoalestedHashTable() = default;
+        explicit StaticCoalestedHashTable() noexcept = default;
 
-        StaticCoalestedHashTable(std::initializer_list<Key> list);
+        StaticCoalestedHashTable(std::initializer_list<value_type> list) noexcept;
 
         template<typename Iter>
-        StaticCoalestedHashTable (Iter begin, Iter end);
+        StaticCoalestedHashTable (Iter begin, Iter end) noexcept;
 
         StaticCoalestedHashTable(const StaticCoalestedHashTable& other) = default;
         StaticCoalestedHashTable(StaticCoalestedHashTable&& other) noexcept = default;
@@ -68,26 +69,52 @@ namespace exam::hashtable {
         StaticCoalestedHashTable& operator= (const StaticCoalestedHashTable& other) = default;
         StaticCoalestedHashTable& operator= (StaticCoalestedHashTable&& other) noexcept = default;
 
+        /**
+         *  @brief Inserts value to hashtable
+         *  @return Iterator on inserted value, if insert was unsuccesful - end()
+         */
+        auto insert (const value_type & value) noexcept -> Iterator;
 
-        auto insert (const Key& value) -> Iterator;
+        /**
+         *  @brief Erase value from hashtable
+         */
+        void erase (const value_type& value);
 
-        void erase (const Key& value);
+        /**
+         *  @return Iterator on value in hashtable, if value is not in hashtable - end()
+         */
+        auto find (const value_type& value) const noexcept -> Iterator;
 
-        auto find (const Key& value) -> Iterator;
-
+        /**
+         *  @return Number of elements in hashtable
+         */
         auto size() const noexcept -> size_type;
 
+        /**
+         *  @return Max possible size of hashtable
+         */
+        constexpr static auto max_size() noexcept -> size_type;
+
+        /**
+         *  @return Iterator on first element in container
+         */
         auto begin() const noexcept -> Iterator;
 
+        /**
+         *  @return Iterator on element after last in container
+         */
         auto end() const noexcept -> Iterator;
+
 
     private:
 
-        auto insert_hint (const Key& value, Iterator last_in_chain) -> Iterator;
+        auto _hash (const value_type& value);
 
         struct Node {
-            std::optional<Key> value;
+            std::optional<value_type> value;
             std::optional<size_type> next;
+
+            auto operator== (const Node& other) const noexcept -> bool;
         };
 
         std::array<Node, Size> _nodes;
@@ -95,7 +122,11 @@ namespace exam::hashtable {
         Hash _hashfunc{};
     };
 
-
+    template <typename Key, std::size_t N, typename Hash>
+    auto operator== (const StaticCoalestedHashTable<Key, N, Hash>& lhs,
+                     const StaticCoalestedHashTable<Key, N, Hash>& rhs) -> bool;
 }
+
+
 
 #include "../../src/HashTables/StaticCoalested.tpp"

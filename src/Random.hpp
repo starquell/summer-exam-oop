@@ -105,7 +105,7 @@ namespace exam {
         }
 
         template <typename Container, typename... Args>
-        auto random_dynamic_container (std::size_t size, Args&&... range) -> Container
+        auto random_dynamic_container (std::size_t size = 10, Args&&... range) -> Container
         {
             if constexpr (std::is_same_v<Container, std::string>) {
                 return random_string(size, std::forward<Args>(range)...);
