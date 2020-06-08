@@ -59,7 +59,7 @@ namespace exam::hashtable {
 
         explicit StaticCoalestedHashTable() noexcept = default;
 
-        StaticCoalestedHashTable(std::initializer_list<Key> list) noexcept;
+        StaticCoalestedHashTable(std::initializer_list<value_type> list) noexcept;
 
         template<typename Iter>
         StaticCoalestedHashTable (Iter begin, Iter end) noexcept;
@@ -70,28 +70,50 @@ namespace exam::hashtable {
         StaticCoalestedHashTable& operator= (const StaticCoalestedHashTable& other) = default;
         StaticCoalestedHashTable& operator= (StaticCoalestedHashTable&& other) noexcept = default;
 
-
+        /**
+         *  @brief Inserts value to hashtable
+         *  @return Iterator on inserted value, if insert was unsuccesful - end()
+         */
         auto insert (const value_type & value) noexcept -> Iterator;
 
+        /**
+         *  @brief Erase value from hashtable
+         */
         void erase (const value_type& value);
 
+        /**
+         *  @return Iterator on value in hashtable, if value is not in hashtable - end()
+         */
         auto find (const value_type& value) const noexcept -> Iterator;
 
+        /**
+         *  @return Number of elements in hashtable
+         */
         auto size() const noexcept -> size_type;
 
+        /**
+         *  @return Max possible size of hashtable
+         */
         constexpr static auto max_size() noexcept -> size_type;
 
+        /**
+         *  @return Iterator on first element in container
+         */
         auto begin() const noexcept -> Iterator;
 
+        /**
+         *  @return Iterator on element after last in container
+         */
         auto end() const noexcept -> Iterator;
+
 
     private:
 
         auto _hash (const value_type& value);
 
         struct Node {
-            std::optional<Key> value;
-            std::optional<typename std::array<Node, Size>::const_iterator> next;
+            std::optional<value_type> value;
+            std::optional<size_type> next;
 
             auto operator== (const Node& other) const noexcept -> bool;
         };
@@ -101,9 +123,11 @@ namespace exam::hashtable {
         Hash _hashfunc{};
     };
 
-
-
-
+    template <typename Key, std::size_t N, typename Hash>
+    auto operator== (const StaticCoalestedHashTable<Key, N, Hash>& lhs,
+                     const StaticCoalestedHashTable<Key, N, Hash>& rhs) -> bool;
 }
+
+
 
 #include "../../src/HashTables/StaticCoalested.tpp"

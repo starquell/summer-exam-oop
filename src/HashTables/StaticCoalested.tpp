@@ -162,6 +162,13 @@ namespace exam::hashtable {
         return _hashfunc(value) % Size;
     }
 
+    template<typename Key, std::size_t N, typename Hash>
+    auto operator==(const StaticCoalestedHashTable<Key, N, Hash>& lhs,
+                    const StaticCoalestedHashTable<Key, N, Hash>& rhs) -> bool
+    {
+        return std::is_permutation(lhs.begin(), lhs.end(), rhs.begin());
+    }
+
     template<typename Key, std::size_t Size, typename Hash>
     StaticCoalestedHashTable<Key, Size, Hash>::Iterator::Iterator(const std::array<
             StaticCoalestedHashTable<Key, Size, Hash>::Node, Size>& nodes, std::size_t index) noexcept

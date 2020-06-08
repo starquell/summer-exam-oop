@@ -9,7 +9,10 @@
 using namespace exam::hashtable;
 
 SCENARIO_TEMPLATE ("Hash tables", HashTable,
-        StaticCoalestedHashTable<int, 10>)
+        StaticCoalestedHashTable<int, 10>,
+        StaticCoalestedHashTable<int, 100>,
+        StaticCoalestedHashTable<double, 100>,
+        StaticCoalestedHashTable<std::string, 100>)
 {
     auto elems = std::unordered_set<typename HashTable::value_type> {};
     auto table = HashTable{};
@@ -19,7 +22,7 @@ SCENARIO_TEMPLATE ("Hash tables", HashTable,
         REQUIRE(std::is_permutation (table.begin(), table.end(), elems.begin()));
 
         const auto to_insert = exam::random<typename HashTable::value_type> ();
-        table.insert(to_insert);
+        REQUIRE(*table.insert(to_insert) == to_insert);
         elems.insert(to_insert);
 
         REQUIRE (table.find(to_insert) != table.end());
