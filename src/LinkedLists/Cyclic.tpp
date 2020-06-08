@@ -18,6 +18,7 @@ namespace exam::lists {
             insert(elem, end());
         }
     }
+
     template <typename T>
     template <typename Iter>
     CyclicLinkedList<T>::CyclicLinkedList(Iter _begin, Iter _end) {
@@ -25,6 +26,35 @@ namespace exam::lists {
             insert(*_begin, end());
         }
     }
+
+    template <typename T>
+    CyclicLinkedList<T>::CyclicLinkedList(const CyclicLinkedList<T>& other) {
+        auto curr = other._head;
+        do {
+            insert(curr->_data, end());
+            curr = curr->_next;
+        } while (curr != other._head);
+    }
+
+    template<typename T>
+    CyclicLinkedList<T>&
+    CyclicLinkedList<T>::operator= (const CyclicLinkedList& other) {
+        if (&other == this) {
+            return *this;
+        }
+
+        _head = nullptr;
+        _tail = nullptr;
+        auto curr = other._head;
+        do {
+            insert(curr->_data, end());
+            curr = curr->_next;
+        } while (curr != other._head);
+        _size = other._size;
+
+        return *this;
+    }
+
     template <typename T>
     void CyclicLinkedList<T>::insert(const T& data, Iterator& iterator) {
         if (!_head) {
@@ -80,7 +110,7 @@ namespace exam::lists {
     }
 
     template <typename T>
-    size_t CyclicLinkedList<T>::size() {
+    size_t CyclicLinkedList<T>::size() const {
         return _size;
     }
 

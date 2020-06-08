@@ -14,6 +14,8 @@ namespace exam::lists::detail {
         friend ListClass;
 
     public:
+        using iterator_category = std::forward_iterator_tag;
+
         CyclicForwardIterator(Node node, bool end = false) :
                 ListForwardIterator<Node, T, ListClass>(node, end) {}
 

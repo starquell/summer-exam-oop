@@ -29,6 +29,10 @@ namespace exam::lists {
         template <typename Iter>
         CyclicLinkedList(Iter begin, Iter end);
 
+        CyclicLinkedList(const CyclicLinkedList<T>& other);
+
+        CyclicLinkedList& operator= (const CyclicLinkedList& other);
+
         Iterator begin();
 
         Iterator end();
@@ -39,7 +43,7 @@ namespace exam::lists {
         void erase(const T& data);
 
         [[nodiscard]]
-        size_t size();
+        size_t size() const;
 
         ~CyclicLinkedList();
     };

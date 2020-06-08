@@ -73,9 +73,9 @@ namespace exam::sort::detail {
             curr++;
         }
 
-        auto HW_concurrency = std::thread::hardware_concurrency();
+        const auto HW_concurrency = std::thread::hardware_concurrency();
 
-        ThreadPool pool(HW_concurrency/2);
+        ThreadPool pool(HW_concurrency / 2);
         std::vector<std::future<void>> results;
 
         for (int i = 0; i < bucketsNumber; i++) {
@@ -84,8 +84,8 @@ namespace exam::sort::detail {
             }));
         }
 
-        for (int i = 0; i < bucketsNumber; i++) {
-            results[i].get();
+        for (auto && result : results) {
+            result.get();
         }
 
         std::sort(buckets.begin(), buckets.end(),

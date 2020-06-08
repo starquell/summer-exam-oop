@@ -12,6 +12,11 @@ namespace exam::lists::detail {
         using Self = ListForwardIterator;
 
     public:
+            using difference_type = std::ptrdiff_t;
+            using value_type = T;
+            using reference = value_type&;
+            using pointer = T*;
+            using iterator_category = std::forward_iterator_tag;
 
         ListForwardIterator(Node node, bool end = false) noexcept :
         currentNode (node) {
@@ -50,7 +55,9 @@ namespace exam::lists::detail {
         }
 
         T& operator* () {
-            assert(currentNode);
+            if (!currentNode) {
+                throw std::out_of_range{"Dereference invalid iterator"};
+            }
             return currentNode->_data;
         }
     };

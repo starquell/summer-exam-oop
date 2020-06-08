@@ -36,27 +36,17 @@ TEST_CASE("DLL") {
 
     SUBCASE("Copy constructor") {
         auto copyList = DoubleLinkedList<int>(list);
-        auto iterator = copyList.begin();
 
         REQUIRE(list.size() == 5);
-        REQUIRE(*(iterator++) == 1);
-        REQUIRE(*(iterator++) == 4);
-        REQUIRE(*(iterator++) == 103);
-        REQUIRE(*(iterator++)== 2);
-        REQUIRE(*(iterator++) == 24);
+        std::equal (copyList.begin(), copyList.end(), elems.begin());
     }
 
     SUBCASE("Operator = ") {
         auto copyList = DoubleLinkedList<int>(elems.begin(), (elems.begin()+2));
         copyList = list;
-        auto iterator = copyList.begin();
 
         REQUIRE(list.size() == 5);
-        REQUIRE(*(iterator++) == 1);
-        REQUIRE(*(iterator++) == 4);
-        REQUIRE(*(iterator++) == 103);
-        REQUIRE(*(iterator++)== 2);
-        REQUIRE(*(iterator++) == 24);
+        std::equal (copyList.begin(), copyList.end(), elems.begin());
     }
 
     SUBCASE("Insert in the begin") {
@@ -136,27 +126,17 @@ TEST_CASE("Cyclic SLL") {
 
     SUBCASE("Copy constructor") {
         auto copyList = CyclicLinkedList<int>(list);
-        auto iterator = copyList.begin();
 
         REQUIRE(list.size() == 5);
-        REQUIRE(*(iterator++) == 1);
-        REQUIRE(*(iterator++) == 4);
-        REQUIRE(*(iterator++) == 103);
-        REQUIRE(*(iterator++)== 2);
-        REQUIRE(*(iterator++) == 24);
+        std::equal(copyList.begin(), copyList.end(), elems.begin());
     }
 
     SUBCASE("Operator = ") {
         auto copyList = CyclicLinkedList<int>(elems.begin(), (elems.begin()+2));
         copyList = list;
-        auto iterator = copyList.begin();
 
         REQUIRE(list.size() == 5);
-        REQUIRE(*(iterator++) == 1);
-        REQUIRE(*(iterator++) == 4);
-        REQUIRE(*(iterator++) == 103);
-        REQUIRE(*(iterator++)== 2);
-        REQUIRE(*(iterator++) == 24);
+        std::equal(copyList.begin(), copyList.end(), elems.begin());
     }
 
     SUBCASE("Insert in the begin") {

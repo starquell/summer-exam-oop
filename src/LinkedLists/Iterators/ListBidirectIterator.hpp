@@ -14,6 +14,8 @@ namespace exam::lists::detail {
         friend ListClass;
 
     public:
+        using iterator_category = std::bidirectional_iterator_tag;
+
         ListBidirectIterator(Node node, bool end = false) :
                 ListForwardIterator<Node, T, ListClass>(node, end) {}
 
