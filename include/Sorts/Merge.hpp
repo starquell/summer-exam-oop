@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../src/Sorts/MergeImpl.hpp"
+#include "../../src/Sorts/MergeImpl.hpp"
 
 namespace exam::sort {
 

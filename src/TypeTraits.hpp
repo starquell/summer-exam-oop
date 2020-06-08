@@ -1,15 +1,28 @@
 #pragma once
 
 #include <type_traits>
+#include <string>
+#include <string_view>
 
 namespace exam::detail {
 
+    /////
+    /////   Some scary traits for random and to_string
+    /////
 
     template <typename InputType, template<typename...> typename Template>
     inline constexpr bool is_template_instantiation = false;
 
     template <typename... InputParams, template<typename...> typename Template>
     inline constexpr bool is_template_instantiation <Template <InputParams...>, Template> = true;
+
+    template <typename T>
+    inline constexpr bool is_string = std::is_same_v<T, std::string>
+                                   || std::is_same_v<T, std::string_view>
+                                   || std::is_same_v<T, const char*>;
+
+    template <std::size_t N>
+    inline constexpr bool is_string <char[N]> = true;
 
     template <typename T, typename = void>
     inline constexpr bool has_push_back = false;
@@ -55,7 +68,6 @@ namespace exam::detail {
 
     template <typename T, std::size_t N>
     inline constexpr std::size_t size_of_static_container <T[N]> = N;
-
 
     template <typename T>
     inline constexpr bool is_dynamic_container = is_container<T> && !is_static_container<T>;
