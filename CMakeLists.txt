@@ -19,6 +19,8 @@ option(BUILD_GUI ON)
 
 include_directories(${THIRD_PARTY_DIR})
 
+set(ENABLE_STD_EXECUTION OFF)
+
 if(BUILD_TESTS)
     enable_testing()
     add_subdirectory(${TESTS_DIR})

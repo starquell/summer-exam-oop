@@ -27,3 +27,6 @@
 
 #include "Map.hpp"
 #include "Set.hpp"
+
+#include "ToString.hpp"
+#include "Random.hpp"

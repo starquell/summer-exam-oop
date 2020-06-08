@@ -17,6 +17,9 @@ addons:
       - gcc-9
       - g++-9
       - cmake
+      - libpthread-stubs0-dev
+
+
 
 env:
   - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug

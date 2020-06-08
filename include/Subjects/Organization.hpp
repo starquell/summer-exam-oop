@@ -253,8 +253,6 @@ namespace exam {
 }
 
 
-
-
 namespace std {
     template <> struct hash<exam::subject::Worker>
     {
