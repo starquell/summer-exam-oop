@@ -16,7 +16,7 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 # sources for qt includes also .ui and .qrc files
 set(SRC_LIST
         main.cpp
-        )
+        mainwindow.hpp mainwindow.cpp)
 
 add_executable(exam-gui ${SRC_LIST})
 
