@@ -4,9 +4,8 @@
 #include "../include/Sorts/Bucket.hpp"
 #include "../include/Sorts/Counting.hpp"
 #include "../include/Sorts/Radix.hpp"
-#include "../include/Random.hpp"
-
 #include "../include/Sorts/Merge.hpp"
+#include "../include/Random.hpp"
 
 #include <algorithm>
 
