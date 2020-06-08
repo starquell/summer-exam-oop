@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cassert>
+#include "../../src/LinkedLists/Iterators/ListBidirectIterator.hpp"
 
 namespace exam::lists {
 
@@ -19,69 +20,7 @@ namespace exam::lists {
         size_t _size = 0;
 
     public:
-
-        class Iterator {
-            friend class DoubleLinkedList;
-            DLLNode* currentNode;
-            bool isEnd = false;
-
-        public:
-            explicit Iterator(DLLNode* node, bool end = false) noexcept :
-                    currentNode (node) {
-                isEnd = !node ? true : end;
-            }
-
-            Iterator& operator= (DLLNode* node) {
-                assert(node);
-                currentNode = node;
-                return *this;
-            }
-
-            Iterator& operator++ () {
-                if (currentNode->_next) {
-                    currentNode = currentNode->_next;
-                } else {
-                    isEnd = true;
-                }
-                return *this;
-            }
-
-            Iterator operator++ (int) {
-                Iterator iterator = *this;
-                ++*this;
-                return iterator;
-            }
-
-            Iterator& operator-- () {
-                if (isEnd) {
-                    isEnd = false;
-                } else {
-                    if (currentNode->_prev) {
-                        currentNode = currentNode->_prev;
-                    }
-                }
-                return *this;
-            }
-
-            Iterator operator-- (int) {
-                Iterator iterator =*this;
-                --*this;
-                return iterator;
-            }
-
-            bool operator!= (const Iterator& iterator) {
-                return (isEnd != iterator.isEnd) && (currentNode != iterator.currentNode);
-            }
-
-            bool operator== (const Iterator& iterator) {
-                return (isEnd == iterator.isEnd) && (currentNode == iterator.currentNode);
-            }
-
-            T& operator* () {
-                assert(!isEnd);
-                return currentNode->_data;
-            }
-        };
+        using Iterator = detail::ListBidirectIterator<DLLNode*, T, DoubleLinkedList>;
 
         using value_type = T;
 
