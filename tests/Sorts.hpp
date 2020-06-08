@@ -4,12 +4,12 @@
 #include "../include/Sorts/Bucket.hpp"
 #include "../include/Random.hpp"
 
+#include "../include/Sorts/Merge.hpp"
+
+#include <algorithm>
+
 using namespace exam::sort;
 
-TEST_CASE ("Sorts") {
-
-
-}
 
 TEST_CASE ("Quick sort") {
 
@@ -95,4 +95,14 @@ TEST_CASE ("Bucket sort") {
             }
         }
     }
+    const auto test_sort = [] (const auto& func) {
+        for (auto i = 10; i <= 100000; i *= 20) {
+            auto random_vec = exam::random<std::vector<int>>(i);
+
+            func(random_vec.begin(), random_vec.end());
+
+            REQUIRE (std::is_sorted(random_vec.begin(), random_vec.end()));
+        }
+    };
+
 }

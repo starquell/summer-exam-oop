@@ -104,11 +104,7 @@ namespace exam {
     template <typename ContainerLhs, typename ContainerRhs>
     auto operator== (const Set<ContainerLhs>& lhs, const Set<ContainerRhs>& rhs) -> bool
     {
-        return std::all_of(lhs.begin(), lhs.end(),
-                           [&rhs] (const auto& elem) {return rhs.contains(elem);})
-                           &&
-              std::all_of(rhs.begin(), rhs.end(),
-                           [&lhs] (const auto& elem) {return lhs.contains(elem);});
+        return std::is_permutation(lhs.begin(), lhs.end(), rhs.begin());
     }
 
     template <typename ContainerLhs, typename ContainerRhs>

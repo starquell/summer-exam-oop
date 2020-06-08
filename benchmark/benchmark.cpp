@@ -1,10 +1,6 @@
 #include <benchmark/benchmark.h>
 
-static auto test (benchmark::State& state) {
-    for (auto _ : state) {
+#include "../include/Random.hpp"
+#include "Hashtables.hpp"
 
-    }
-}
-
-BENCHMARK(test);
 BENCHMARK_MAIN();
