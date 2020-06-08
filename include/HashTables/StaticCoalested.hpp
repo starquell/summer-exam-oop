@@ -9,7 +9,6 @@ namespace exam::hashtable {
      *  @brief Class representing Coalested Hash Table stored on stack
      *
      *  @param Key Type of values stored in table
-     *  @param storage Storage type
      *  @param Hash Hash function used for hashing keys
      *  @param Size Size of table for static storage
      */
