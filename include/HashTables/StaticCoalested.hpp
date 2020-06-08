@@ -12,6 +12,7 @@ namespace exam::hashtable {
      *  @param Hash Hash function used for hashing keys
      *  @param Size Size of table for static storage
      */
+
     template <typename Key,
               std::size_t Size,
               typename Hash = std::hash<Key>>

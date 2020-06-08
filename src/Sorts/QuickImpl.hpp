@@ -7,7 +7,7 @@ namespace exam::sort::detail {
 
     constexpr static auto PARALLELING_POINT = 5000;
 
-    template <typename Iter, typename Comp>
+        template <typename Iter, typename Comp>
     void default_quick(Iter beg, Iter end, Comp comp) {
 
         const auto distance = std::distance(beg, end);
