@@ -3,17 +3,17 @@
 namespace exam::lists {
 
     template <typename T>
-    typename CyclicLinkedList<T>::Iterator CyclicLinkedList<T>::begin() {
+    typename SinglyLinkedList<T>::Iterator SinglyLinkedList<T>::begin() {
         return Iterator(_head);
     }
 
     template <typename T>
-    typename CyclicLinkedList<T>::Iterator CyclicLinkedList<T>::end() {
+    typename SinglyLinkedList<T>::Iterator SinglyLinkedList<T>::end() {
         return Iterator(_tail, true);
     }
 
     template <typename T>
-    CyclicLinkedList<T>::CyclicLinkedList(std::initializer_list<T> elems) {
+    SinglyLinkedList<T>::SinglyLinkedList(std::initializer_list<T> elems) {
         for (const auto& elem : elems) {
             insert(elem, end());
         }
@@ -21,24 +21,24 @@ namespace exam::lists {
 
     template <typename T>
     template <typename Iter>
-    CyclicLinkedList<T>::CyclicLinkedList(Iter _begin, Iter _end) {
+    SinglyLinkedList<T>::SinglyLinkedList(Iter _begin, Iter _end) {
         for (; _begin != _end; ++_begin) {
             insert(*_begin, end());
         }
     }
 
     template <typename T>
-    CyclicLinkedList<T>::CyclicLinkedList(const CyclicLinkedList<T>& other) {
+    SinglyLinkedList<T>::SinglyLinkedList(const SinglyLinkedList<T>& other) {
         auto curr = other._head;
-        do {
+        while (curr) {
             insert(curr->_data, end());
             curr = curr->_next;
-        } while (curr != other._head);
+        }
     }
 
     template<typename T>
-    CyclicLinkedList<T>&
-    CyclicLinkedList<T>::operator= (const CyclicLinkedList& other) {
+    SinglyLinkedList<T>&
+    SinglyLinkedList<T>::operator= (const SinglyLinkedList& other) {
         if (&other == this) {
             return *this;
         }
@@ -46,27 +46,25 @@ namespace exam::lists {
         _head = nullptr;
         _tail = nullptr;
         auto curr = other._head;
-        do {
+        while (curr) {
             insert(curr->_data, end());
             curr = curr->_next;
-        } while (curr != other._head);
+        }
         _size = other._size;
 
         return *this;
     }
 
     template <typename T>
-    void CyclicLinkedList<T>::insert(const T& data, Iterator& iterator) {
+    void SinglyLinkedList<T>::insert(const T& data, Iterator& iterator) {
         if (!_head) {
             _head = new SLLNode(data);
-            _head->_next = _head;
             _tail = _head;
             iterator.currentNode = _tail;
         } else if (iterator == end()){
             auto inputNode = new SLLNode(data);
             auto iterNode = iterator.currentNode;
             iterNode->_next = inputNode;
-            inputNode->_next = _head;
             _tail = inputNode;
             iterator.currentNode = _tail;
         } else {
@@ -81,24 +79,28 @@ namespace exam::lists {
     }
 
     template <typename T>
-    void CyclicLinkedList<T>::insert(const T& data, Iterator&& iterator) {
+    void SinglyLinkedList<T>::insert(const T& data, Iterator&& iterator) {
         auto iterRef = iterator;
         insert(data, iterRef);
     }
 
     template <typename T>
-    void CyclicLinkedList<T>::erase(const T& data) {
-        SLLNode* curr = _tail;
-        do {
+    void SinglyLinkedList<T>::erase(const T& data) {
+        SLLNode* curr = _head;
+        if (curr->_data == data) {
+            if (curr == _tail) {
+                _head = _tail = nullptr;
+            } else {
+                _head = _head->_next;
+            }
+            delete curr;
+            _size--;
+            return;
+        }
+        while (curr->_next) {
             if (curr->_next->_data == data) {
                 auto toDelete = curr->_next;
-                if (toDelete == _head) {
-                    if (toDelete == _tail) {
-                        _head = _tail = nullptr;
-                    } else {
-                        _head = toDelete->_next;
-                    }
-                } else if (toDelete == _tail) {
+                if (toDelete == _tail) {
                     _tail = curr;
                 }
                 curr->_next = toDelete->_next;
@@ -107,26 +109,19 @@ namespace exam::lists {
                 break;
             }
             curr = curr->_next;
-        } while (curr != _tail);
+        }
     }
 
     template <typename T>
-    size_t CyclicLinkedList<T>::size() const {
+    size_t SinglyLinkedList<T>::size() const {
         return _size;
     }
 
     template <typename T>
-    CyclicLinkedList<T>::~CyclicLinkedList<T>() {
+    SinglyLinkedList<T>::~SinglyLinkedList<T>() {
         SLLNode* curr = _head;
-        SLLNode* next = _head->_next;
-
-        if (next) {
-            curr->_next = nullptr;
-        }
-        curr = next;
-
         while (curr) {
-            next = curr->_next;
+            SLLNode* next = curr->_next;
             delete curr;
             curr = next;
         }

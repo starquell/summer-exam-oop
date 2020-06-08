@@ -16,6 +16,7 @@
 
 #include "LinkedLists/Cyclic.hpp"
 #include "LinkedLists/DoubleLinked.hpp"
+#include "LinkedLists/SinglyLinked.hpp.hpp"
 
 #include "Subjects/Book.hpp"
 #include "Subjects/Organization.hpp"
