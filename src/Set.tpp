@@ -26,12 +26,6 @@
         }
 
         template <typename Key, template<typename...> typename Container>
-        inline void Set<Key, Container>::insert(iterator, const value_type& value)
-        {
-            return Impl::insert(_container, value);
-        }
-
-        template <typename Key, template<typename...> typename Container>
         inline void Set<Key, Container>::erase(const value_type &value)
         {
             Impl::erase(_container, value);
@@ -143,7 +137,6 @@
             for (const auto& elem : other) {
                 insert(elem);
             }
+            return *this;
         }
-
-
     }

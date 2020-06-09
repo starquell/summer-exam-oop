@@ -18,5 +18,16 @@ int main () {
      }
      std::cout << std::endl;
 
+     exam::AnySet <int, exam::tree::SplayTree, exam::tree::AVLTree> set (exam::Set<int, exam::tree::SplayTree>{});
+     set.insert (34);
+     set.insert (325);
+     set.insert (1);
+     set.erase(34);
+
+     for (const auto& i : set) {
+         std::cout << i << ' ';
+     }
+
+
     return 0;
 }

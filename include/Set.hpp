@@ -38,20 +38,13 @@ namespace exam {
         Set (const Set<Key, OtherContainer>& other);
 
         template <template<typename> typename OtherContainer>
-        auto operator=(const Set<Key, OtherContainer>& other) -> Set&;
+        auto operator= (const Set<Key, OtherContainer>& other) -> Set&;
 
 
         /**
          *  @brief Inserts element to set
-         *  @param hint for compatibility with std::insert_iterator
          */
         void insert (const value_type& value);
-
-        /**
-         *  @brief Inserts element to set
-         *  @param hint for compatibility with std::insert_iterator
-         */
-        void insert (iterator, const value_type& value);
 
         /**
          *  @brief Erases element from set
@@ -103,17 +96,19 @@ namespace exam {
     };
 
 
-    template <typename KeyLhs, template<typename...> typename ContainerLhs,
-              typename KeyRhs, template<typename...> typename ContainerRhs>
-    auto operator== (const Set<KeyLhs, ContainerLhs>& lhs, const Set<KeyRhs, ContainerRhs>& rhs) -> bool
+    template <typename Key,
+              template<typename...> typename ContainerLhs,
+              template<typename...> typename ContainerRhs>
+    auto operator== (const Set<Key, ContainerLhs>& lhs, const Set<Key, ContainerRhs>& rhs) -> bool
     {
         return std::is_permutation(lhs.begin(), lhs.end(), rhs.begin());
     }
 
 
-    template <typename KeyLhs, template<typename...> typename ContainerLhs,
-            typename KeyRhs, template<typename...> typename ContainerRhs>
-    auto operator!= (const Set<KeyLhs, ContainerLhs>& lhs, const Set<KeyRhs, ContainerRhs>& rhs) -> bool
+    template <typename Key,
+              template<typename...> typename ContainerLhs,
+              template<typename...> typename ContainerRhs>
+    auto operator!= (const Set<Key, ContainerLhs>& lhs, const Set<Key, ContainerRhs>& rhs) -> bool
     {
         return !(lhs == rhs);
     }
