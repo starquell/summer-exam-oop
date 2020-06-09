@@ -2,14 +2,12 @@
 
 #include "include/AllExam.hpp"
 
-#include <list>
-
 int main () {
 
 
      auto vec = exam::random<std::vector<int>>(100, 0, 100);
 
-     exam::sort::Sorter<int>{}.sort_type(exam::sort::Sorter<int>::SortType::BinarySearchTree)
+     exam::sort::Sorter<int>{}.sort_type(exam::sort::Sorter<int>::SortType::Heap)
                               .comparator(std::less<int>{})
                               .sort(vec.begin(), vec.end());
 

@@ -60,6 +60,9 @@ namespace exam::sort {
             case SortType::Insertion:
                 insertion_sort(begin, end, _comp);
                 break;
+            case SortType::Heap:
+                heap_sort(begin, end, _comp);
+                break;
             case SortType::BinarySearchTree:
                 bst_sort(begin, end, _comp);
                 break;
