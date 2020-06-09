@@ -1,11 +1,13 @@
 #pragma once
 
+#include "MutualDefs.hpp"
+
 #include <set>
 
 namespace exam::sort {
 
-    template <typename Iter, typename Comp>
-    void bst_sort (Iter begin, Iter end, Comp comp) {
+    template <typename Iter, typename Comp = std::less<>>
+    void bst_sort (Iter begin, Iter end, Comp comp = Comp{}) {
 
         std::multiset <typename Iter::value_type, Comp> bst(comp);
 
