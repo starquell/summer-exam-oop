@@ -4,6 +4,8 @@
 #include "../include/Sorts/Bucket.hpp"
 #include "../include/Sorts/Counting.hpp"
 #include "../include/Sorts/Radix.hpp"
+#include "../include/Sorts/Selection.hpp"
+#include "../include/Sorts/Insertion.hpp"
 //#include "../include/Sorts/Merge.hpp"
 #include "../include/Random.hpp"
 
@@ -81,6 +83,22 @@ void default_counting (benchmark::State& state) {
     }
 }
 
+void default_selection (benchmark::State& state) {
+    auto vec = exam::random<std::vector<int>> (state.range(0), 0, state.range(0));
+
+    for (auto _ : state) {
+        selection_sort(vec.begin(), vec.end());
+    }
+}
+
+void default_insertion (benchmark::State& state) {
+    auto vec = exam::random<std::vector<int>> (state.range(0), 0, state.range(0));
+
+    for (auto _ : state) {
+        insertion_sort(vec.begin(), vec.end());
+    }
+}
+
 BENCHMARK(default_quick)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
 BENCHMARK(parallel_quick)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
 BENCHMARK(default_bucket)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
@@ -90,3 +108,5 @@ BENCHMARK(parallel_bucket)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benc
 BENCHMARK(default_radix)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
 BENCHMARK(parallel_radix)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
 BENCHMARK(default_counting)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
+BENCHMARK(default_selection)->RangeMultiplier(10)->Range(100, 100000)->Unit(benchmark::kMillisecond);
+BENCHMARK(default_insertion)->RangeMultiplier(10)->Range(100, 100000)->Unit(benchmark::kMillisecond);

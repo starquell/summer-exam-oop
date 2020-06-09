@@ -6,6 +6,7 @@
 #include "../include/Sorts/Radix.hpp"
 //#include "../include/Sorts/Merge.hpp"
 #include "../include/Sorts/Selection.hpp"
+#include "../include/Sorts/Insertion.hpp"
 #include "../include/Random.hpp"
 
 #include <algorithm>
@@ -188,6 +189,28 @@ TEST_CASE ("Selection sort") {
             auto vec = exam::random<std::vector<int>> (i, 0, i);
 
             selection_sort(vec.begin(), vec.end(), std::greater{});
+            REQUIRE(std::is_sorted(vec.begin(), vec.end(), std::greater{}));
+        }
+    }
+
+}
+
+TEST_CASE ("Insertion sort") {
+
+    SUBCASE("Less comparator") {
+        for (auto i = 10; i <= 10000; i *= 10) {
+            auto vec = exam::random<std::vector<int>> (i, 0, i);
+
+            insertion_sort(vec.begin(), vec.end());
+            REQUIRE(std::is_sorted(vec.begin(), vec.end()));
+        }
+    }
+
+    SUBCASE("Greater comparator") {
+        for (auto i = 10; i <= 10000; i *= 10) {
+            auto vec = exam::random<std::vector<int>> (i, 0, i);
+
+            insertion_sort(vec.begin(), vec.end(), std::greater{});
             REQUIRE(std::is_sorted(vec.begin(), vec.end(), std::greater{}));
         }
     }
