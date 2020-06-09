@@ -33,7 +33,6 @@ namespace exam::lists {
 
         CyclicLinkedList& operator= (const CyclicLinkedList& other);
 
-
         iterator begin() const;
 
         iterator end() const;

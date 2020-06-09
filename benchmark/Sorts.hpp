@@ -132,4 +132,3 @@ BENCHMARK(default_selection)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchma
 BENCHMARK(default_insertion)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
 BENCHMARK(default_heap)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
 BENCHMARK(default_bst)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
-

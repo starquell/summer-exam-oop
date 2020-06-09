@@ -31,8 +31,10 @@ namespace exam::lists {
     CyclicLinkedList<T>::CyclicLinkedList(const CyclicLinkedList<T>& other) {
         auto curr = other._head;
         do {
-            insert(curr->_data, end());
-            curr = curr->_next;
+            if (curr) {
+                insert(curr->_data, end());
+                curr = curr->_next;
+            }
         } while (curr != other._head);
     }
 
@@ -47,8 +49,10 @@ namespace exam::lists {
         _tail = nullptr;
         auto curr = other._head;
         do {
-            insert(curr->_data, end());
-            curr = curr->_next;
+            if (curr) {
+                insert(curr->_data, end());
+                curr = curr->_next;
+            }
         } while (curr != other._head);
         _size = other._size;
 
@@ -90,23 +94,25 @@ namespace exam::lists {
     void CyclicLinkedList<T>::erase(const T& data) {
         SLLNode* curr = _tail;
         do {
-            if (curr->_next->_data == data) {
-                auto toDelete = curr->_next;
-                if (toDelete == _head) {
-                    if (toDelete == _tail) {
-                        _head = _tail = nullptr;
-                    } else {
-                        _head = toDelete->_next;
+            if (curr->_next) {
+                if (curr->_next->_data == data) {
+                    auto toDelete = curr->_next;
+                    if (toDelete == _head) {
+                        if (toDelete == _tail) {
+                            _head = _tail = nullptr;
+                        } else {
+                            _head = toDelete->_next;
+                        }
+                    } else if (toDelete == _tail) {
+                        _tail = curr;
                     }
-                } else if (toDelete == _tail) {
-                    _tail = curr;
+                    curr->_next = toDelete->_next;
+                    delete toDelete;
+                    _size--;
+                    break;
                 }
-                curr->_next = toDelete->_next;
-                delete toDelete;
-                _size--;
-                break;
+                curr = curr->_next;
             }
-            curr = curr->_next;
         } while (curr != _tail);
     }
 

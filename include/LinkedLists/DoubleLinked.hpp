@@ -36,7 +36,6 @@ namespace exam::lists {
 
         DoubleLinkedList& operator= (const DoubleLinkedList& other);
 
-
         iterator begin() const;
 
         iterator end() const;

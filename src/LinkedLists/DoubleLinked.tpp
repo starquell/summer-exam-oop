@@ -10,7 +10,6 @@ namespace exam::lists {
     template <typename T>
     typename DoubleLinkedList<T>::iterator DoubleLinkedList<T>::end() const {
         return iterator(_tail, true);
-
     }
 
     template <typename T>
