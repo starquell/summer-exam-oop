@@ -1,7 +1,8 @@
 #pragma once
 
 #include <QMainWindow>
-
+#include <QCloseEvent>
+#include<QMediaPlayer>
 
 namespace Ui {
     class MainWindow;
@@ -19,5 +20,8 @@ private slots:
     void on_ConfirmIntro_clicked();
 
 private:
+    void closeEvent(QCloseEvent *event);
+
+    QMediaPlayer *_music;
     Ui::MainWindow *ui;
 };

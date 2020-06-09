@@ -25,6 +25,7 @@ SOURCES += \
 
 
 HEADERS += \
+    gui/SortSession.h \
         gui/mainwindow.hpp\
         include/AllExam.hpp\
         include/Map.hpp\

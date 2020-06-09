@@ -1,4 +1,18 @@
-#ifndef SORTSESSION_H
-#define SORTSESSION_H
+#pragma once
+#include <QStringListModel>
 
-#endif // SORTSESSION_H
+
+namespace Ui {
+class MainWindow;
+}
+
+
+class SortSession{
+public:
+    SortSession() = default;
+
+private:
+    Ui::MainWindow* _ui;
+    QStringListModel* _unsortedModel;
+    QStringListModel* _sortedModel;
+};

@@ -145,8 +145,23 @@ backgrond:transparent;
             <item row="0" column="0">
              <widget class="QTabWidget" name="tabWidget">
               <property name="styleSheet">
-               <string notr="true"> #tabWidget{
-opacity:1;
+               <string notr="true"> QTabWidget::pane {
+    background: rgba(250,250,250,0.5);
+    border:0;
+	border-top-left-radius: 0;
+	border-top-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+QTabBar::tab {
+padding: 10px;
+    background: rgba(200,200,200,0.6);
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+}
+QTabBar::tab:hover{
+	background:rgba(100,100,100,0.6)
 }</string>
               </property>
               <property name="currentIndex">
@@ -156,314 +171,518 @@ opacity:1;
                <attribute name="title">
                 <string>А давайте посортуємо</string>
                </attribute>
-               <widget class="QListView" name="CurrentContainer">
-                <property name="geometry">
-                 <rect>
-                  <x>40</x>
-                  <y>40</y>
-                  <width>261</width>
-                  <height>411</height>
-                 </rect>
-                </property>
-               </widget>
-               <widget class="QListView" name="SortedContainer">
-                <property name="geometry">
-                 <rect>
-                  <x>730</x>
-                  <y>30</y>
-                  <width>261</width>
-                  <height>411</height>
-                 </rect>
-                </property>
-               </widget>
-               <widget class="QPushButton" name="GenArr">
-                <property name="geometry">
-                 <rect>
-                  <x>440</x>
-                  <y>120</y>
-                  <width>131</width>
-                  <height>26</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string>Generate</string>
-                </property>
-               </widget>
-               <widget class="QSpinBox" name="ContainerSize">
-                <property name="geometry">
-                 <rect>
-                  <x>440</x>
-                  <y>40</y>
-                  <width>131</width>
-                  <height>27</height>
-                 </rect>
-                </property>
-               </widget>
-               <widget class="QComboBox" name="typeData">
-                <property name="geometry">
-                 <rect>
-                  <x>440</x>
-                  <y>80</y>
-                  <width>131</width>
-                  <height>26</height>
-                 </rect>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>int</string>
-                 </property>
+               <layout class="QGridLayout" name="gridLayout_8">
+                <item row="1" column="1">
+                 <widget class="QSpinBox" name="ContainerSize">
+                  <property name="styleSheet">
+                   <string notr="true">#ContainerSize{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>std::string</string>
-                 </property>
+                <item row="6" column="1">
+                 <widget class="QPushButton" name="SortArr">
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}
+QPushButton:hover{
+border-width:3px;
+}
+QPushButton:pressed{
+border-width:4px;
+}
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Sort</string>
+                  </property>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>std::vector&lt;int&gt;</string>
-                 </property>
+                <item row="0" column="2" rowspan="8">
+                 <widget class="QListView" name="SortedContainer">
+                  <property name="styleSheet">
+                   <string notr="true">#SortedContainer{
+background-color: transparent;
+border-image: url(:pics/frame.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>Ministry</string>
-                 </property>
+                <item row="3" column="1">
+                 <widget class="QPushButton" name="GenArr">
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}
+QPushButton:hover{
+border-width:3px;
+}
+QPushButton:pressed{
+border-width:4px;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>Generate</string>
+                  </property>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>std::vector&lt;Ministry&gt;</string>
-                 </property>
+                <item row="0" column="0" rowspan="8">
+                 <widget class="QListView" name="CurrentContainer">
+                  <property name="styleSheet">
+                   <string notr="true">#CurrentContainer{
+background-color: transparent;
+border-image: url(:pics/frame.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                 </widget>
                 </item>
-               </widget>
-               <widget class="QComboBox" name="typeSort">
-                <property name="geometry">
-                 <rect>
-                  <x>440</x>
-                  <y>340</y>
-                  <width>131</width>
-                  <height>26</height>
-                 </rect>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Select </string>
-                 </property>
+                <item row="2" column="1">
+                 <widget class="QComboBox" name="typeData">
+                  <property name="styleSheet">
+                   <string notr="true">#typeData
+{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>int</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>std::string</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>std::vector&lt;int&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Ministry</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>std::vector&lt;Ministry&gt;</string>
+                   </property>
+                  </item>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>Quick</string>
-                 </property>
+                <item row="7" column="1">
+                 <spacer name="verticalSpacer_8">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>Merge</string>
-                 </property>
+                <item row="5" column="1">
+                 <widget class="QComboBox" name="typeSort">
+                  <property name="styleSheet">
+                   <string notr="true">#typeSort{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Select </string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Quick</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Merge</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Bucket</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Insert</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Heap</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Radix</string>
+                   </property>
+                  </item>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>Bucket</string>
-                 </property>
+                <item row="0" column="1">
+                 <spacer name="verticalSpacer_9">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>Insert</string>
-                 </property>
+                <item row="4" column="1">
+                 <spacer name="verticalSpacer_10">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>Heap</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>Radix</string>
-                 </property>
-                </item>
-               </widget>
-               <widget class="QPushButton" name="SortArr">
-                <property name="geometry">
-                 <rect>
-                  <x>440</x>
-                  <y>380</y>
-                  <width>131</width>
-                  <height>26</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string>Sort</string>
-                </property>
-               </widget>
+               </layout>
               </widget>
               <widget class="QWidget" name="Container">
                <attribute name="title">
                 <string>Заповнимо ж наші контейнери</string>
                </attribute>
-               <widget class="QListView" name="currentContainer">
-                <property name="geometry">
-                 <rect>
-                  <x>750</x>
-                  <y>10</y>
-                  <width>301</width>
-                  <height>461</height>
-                 </rect>
-                </property>
-               </widget>
-               <widget class="QLineEdit" name="Elapsed">
-                <property name="geometry">
-                 <rect>
-                  <x>750</x>
-                  <y>480</y>
-                  <width>301</width>
-                  <height>26</height>
-                 </rect>
-                </property>
-               </widget>
-               <widget class="QPushButton" name="NewSession">
-                <property name="geometry">
-                 <rect>
-                  <x>490</x>
-                  <y>30</y>
-                  <width>181</width>
-                  <height>26</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string>Новий контейнер</string>
-                </property>
-               </widget>
-               <widget class="QComboBox" name="comboBox">
-                <property name="geometry">
-                 <rect>
-                  <x>50</x>
-                  <y>30</y>
-                  <width>161</width>
-                  <height>26</height>
-                 </rect>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>int</string>
-                 </property>
+               <layout class="QGridLayout" name="gridLayout_9">
+                <item row="2" column="0">
+                 <widget class="QComboBox" name="comboBox">
+                  <property name="styleSheet">
+                   <string notr="true">#comboBox{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>int</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>std::string</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>std::vector&lt;int&gt;</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Ministry</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>std::vector&lt;Ministry&gt;</string>
+                   </property>
+                  </item>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>std::string</string>
-                 </property>
+                <item row="3" column="0" colspan="4">
+                 <widget class="QTextBrowser" name="Setup">
+                  <property name="styleSheet">
+                   <string notr="true">#Setup{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>std::vector&lt;int&gt;</string>
-                 </property>
+                <item row="7" column="0" colspan="4">
+                 <widget class="QPushButton" name="Erase">
+                  <property name="styleSheet">
+                   <string notr="true">#Erase{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}
+#Erase:hover{
+border-width:3px;
+}
+#Erase:pressed{
+border-width:4px;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>Видалити з контейнера</string>
+                  </property>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>Ministry</string>
-                 </property>
+                <item row="1" column="0">
+                 <spacer name="verticalSpacer_5">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>std::vector&lt;Ministry&gt;</string>
-                 </property>
+                <item row="9" column="4">
+                 <widget class="QLineEdit" name="Elapsed"/>
                 </item>
-               </widget>
-               <widget class="QComboBox" name="comboBox_2">
-                <property name="geometry">
-                 <rect>
-                  <x>230</x>
-                  <y>30</y>
-                  <width>231</width>
-                  <height>26</height>
-                 </rect>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>Double linked list</string>
-                 </property>
+                <item row="4" column="0">
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>AVL tree</string>
-                 </property>
+                <item row="5" column="0" colspan="2">
+                 <widget class="QPushButton" name="GenerateValue">
+                  <property name="styleSheet">
+                   <string notr="true">#GenerateValue{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}
+#GenerateValue:hover{
+border-width:3px;
+}
+#GenerateValue:pressed{
+border-width:4px;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>Згенеруванувати нове значення</string>
+                  </property>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>Splay tree</string>
-                 </property>
+                <item row="0" column="0">
+                 <spacer name="verticalSpacer_4">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>Red black tree</string>
-                 </property>
+                <item row="2" column="1" colspan="2">
+                 <widget class="QComboBox" name="comboBox_2">
+                  <property name="styleSheet">
+                   <string notr="true">#comboBox_2{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Double linked list</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>AVL tree</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Splay tree</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Red black tree</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Coalesced hash</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Set</string>
+                   </property>
+                  </item>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>Coalesced hash</string>
-                 </property>
+                <item row="5" column="2" colspan="2">
+                 <widget class="QPushButton" name="InsertContainer">
+                  <property name="styleSheet">
+                   <string notr="true">#InsertContainer{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}
+#InsertContainer:hover{
+border-width:3px;
+}
+#InsertContainer:pressed{
+border-width:4px;
+}
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Вставити в контейнер</string>
+                  </property>
+                 </widget>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>Set</string>
-                 </property>
+                <item row="2" column="3">
+                 <widget class="QPushButton" name="NewSession">
+                  <property name="styleSheet">
+                   <string notr="true">#NewSession{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}
+#NewSession:hover{
+border-width:3px;
+}
+#NewSession:pressed{
+border-width:4px;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>Новий контейнер</string>
+                  </property>
+                 </widget>
                 </item>
-               </widget>
-               <widget class="QPushButton" name="GenerateValue">
-                <property name="geometry">
-                 <rect>
-                  <x>50</x>
-                  <y>230</y>
-                  <width>291</width>
-                  <height>26</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string>Згенеруванувати нове значення</string>
-                </property>
-               </widget>
-               <widget class="QTextBrowser" name="Setup">
-                <property name="geometry">
-                 <rect>
-                  <x>50</x>
-                  <y>90</y>
-                  <width>621</width>
-                  <height>91</height>
-                 </rect>
-                </property>
-               </widget>
-               <widget class="QPushButton" name="InsertContainer">
-                <property name="geometry">
-                 <rect>
-                  <x>360</x>
-                  <y>230</y>
-                  <width>311</width>
-                  <height>26</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string>Вставити в контейнер</string>
-                </property>
-               </widget>
-               <widget class="QTextEdit" name="textEdit">
-                <property name="geometry">
-                 <rect>
-                  <x>50</x>
-                  <y>280</y>
-                  <width>621</width>
-                  <height>121</height>
-                 </rect>
-                </property>
-               </widget>
-               <widget class="QPushButton" name="Erase">
-                <property name="geometry">
-                 <rect>
-                  <x>50</x>
-                  <y>430</y>
-                  <width>621</width>
-                  <height>26</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string>Видалити з контейнера</string>
-                </property>
-               </widget>
+                <item row="9" column="0">
+                 <spacer name="verticalSpacer_6">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="6" column="0" colspan="4">
+                 <widget class="QTextEdit" name="ValueToInsert">
+                  <property name="styleSheet">
+                   <string notr="true">#ValueToInsert{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="0">
+                 <spacer name="verticalSpacer_7">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="0" column="4" rowspan="9">
+                 <widget class="QListView" name="currentContainer">
+                  <property name="styleSheet">
+                   <string notr="true">#currentContainer{
+background-color: transparent;
+border-image: url(:pics/frame.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </widget>
             </item>

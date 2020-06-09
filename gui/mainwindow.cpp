@@ -1,7 +1,8 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 #include <QMediaPlayer>
-
+#include <QCloseEvent>
+#include <QMessageBox>
 
 #include <AllExam.hpp>
 
@@ -11,11 +12,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
-    QMediaPlayer *music = new QMediaPlayer();
-    music->setVolume(70);
+    _music = new QMediaPlayer();
+    _music->setVolume(70);
 
-    music->setMedia(QUrl("qrc:/sounds/Everlasting.mp3"));
-    music->play();
+    _music->setMedia(QUrl("qrc:/sounds/Everlasting.mp3"));
+    _music->play();
     ui->Greeting->setPlainText("  Привіт, мене звати Алісочка. Рада вас бачити на літньому екзамені в таборі <<Совеня>>!"
                                " Тут ми пройдемося по алеї дерев різних видів, зіставимо списки членів табора "
                                "(списки також ріноманітні), відсортуємо книжки(як самотужки, так і разом з друзями "
@@ -33,4 +34,25 @@ MainWindow::~MainWindow()
 void MainWindow::on_ConfirmIntro_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    event->ignore();
+    this->_music->pause();
+    QMediaPlayer *good_bye = new QMediaPlayer();
+    good_bye->setVolume(70);
+
+    good_bye->setMedia(QUrl("qrc:/sounds/Bye.mp3"));
+    good_bye->play();
+    if (QMessageBox::Yes == QMessageBox::question(this, "Завершити подоріж?", "Ви справді хочете завершити нашу сумісну"
+                                                  "  подоріж довжиною в два семестра? Дякуюмо вам за цей прекрасний рік :)", QMessageBox::Yes | QMessageBox::No))
+    {
+        event->accept();
+    }
+    good_bye->stop();
+    this->_music->play();
+
 }

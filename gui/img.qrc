@@ -3,5 +3,7 @@
         <file>pics/Alisochka.jpg</file>
         <file>pics/dialog.png</file>
         <file>sounds/Everlasting.mp3</file>
+        <file>pics/frame.png</file>
+        <file>sounds/Bye.mp3</file>
     </qresource>
 </RCC>
