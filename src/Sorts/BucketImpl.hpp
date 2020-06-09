@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include<cmath>
 #include <future>
 #include "../../3rdparty/thread_pool/ThreadPool.h"
 
@@ -17,7 +18,7 @@ namespace exam::sort::detail {
         }
 
         if (bucketsNumber <= 1) {
-            bucketsNumber = std::sqrt(distance);
+            bucketsNumber = sqrt(distance);
         }
 
         std::vector<std::vector<typename Iter::value_type>> buckets(bucketsNumber);
@@ -61,7 +62,7 @@ namespace exam::sort::detail {
         }
 
         if (bucketsNumber <= 1) {
-            bucketsNumber = std::sqrt(distance);
+            bucketsNumber = sqrt(distance);
         }
 
         std::vector<std::vector<typename Iter::value_type>> buckets(bucketsNumber);

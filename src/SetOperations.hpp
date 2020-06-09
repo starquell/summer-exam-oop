@@ -11,6 +11,7 @@
 #include "../include/HashTables/StaticCoalested.hpp"
 #include "../include/LinkedLists/DoubleLinked.hpp"
 #include "../include/LinkedLists/Cyclic.hpp"
+#include "../include/LinkedLists/SinglyLinked.hpp"
 
 
 namespace exam::detail {
@@ -29,7 +30,7 @@ namespace exam::detail {
     struct SetOperations <Container, std::enable_if_t<
                     detail::is_template_instantiation_of<
                             Container, lists::DoubleLinkedList,
-                                       lists::CyclicLinkedList>>> {
+                                       lists::CyclicLinkedList, lists::SinglyLinkedList>>> {
 
         using value_type = typename Container::value_type;
 

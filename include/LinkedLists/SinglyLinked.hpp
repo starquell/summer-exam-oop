@@ -33,9 +33,9 @@ namespace exam::lists {
 
         SinglyLinkedList& operator= (const SinglyLinkedList& other);
 
-        iterator begin();
+        iterator begin() const;
 
-        iterator end();
+        iterator end() const;
 
         void insert(const T& data, iterator& iterator);
         void insert(const T& data, iterator&& iterator);

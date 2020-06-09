@@ -54,9 +54,7 @@ namespace exam::sort {
             case SortType::Selection:
                 selection_sort(begin, end, _comp);
                 break;
-            case SortType::Counting:
-                counting_sort(begin, end);
-                break;
+
             case SortType::Insertion:
                 insertion_sort(begin, end, _comp);
                 break;
