@@ -1,12 +1,14 @@
 #ifndef CONTAINERSESSION_HPP
 #define CONTAINERSESSION_HPP
+
 #include<QStringListModel>
 #include<any>
+
 namespace Ui {
 class MainWindow;
 }
 namespace exam{
-enum class ContainerBase{
+enum ContainerBase{
     SingleLinked,
     DoubleLinked,
     DoubleCycled,
@@ -26,10 +28,11 @@ public:
 
     void startNewSession();
 
-    void insert();
+//    void insert();
 
-    void erase();
+//    void erase();
 private:
+    ContainerBase _curPolicy;
     void _display();
     Ui::MainWindow* _ui;
     QStringListModel* _setModel;

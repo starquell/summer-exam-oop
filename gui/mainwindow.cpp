@@ -3,9 +3,10 @@
 #include <QMediaPlayer>
 #include <QCloseEvent>
 #include <QMessageBox>
-
+#include <gui/containersession.hpp>
 #include <AllExam.hpp>
 
+namespace exam{
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
         ui(new Ui::MainWindow)
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _music->setMedia(QUrl("qrc:/sounds/Everlasting.mp3"));
     _music->play();
+    _containerSession = new ContainerSession(ui);
     ui->Greeting->setPlainText("  Привіт, мене звати Алісочка. Рада вас бачити на літньому екзамені в таборі <<Совеня>>!"
                                " Тут ми пройдемося по алеї дерев різних видів, зіставимо списки членів табора "
                                "(списки також ріноманітні), відсортуємо книжки(як самотужки, так і разом з друзями "
@@ -55,4 +57,10 @@ void MainWindow::closeEvent(QCloseEvent *event)
     good_bye->stop();
     this->_music->play();
 
+}
+}
+
+void exam::MainWindow::on_NewSession_clicked()
+{
+    _containerSession->startNewSession();
 }
