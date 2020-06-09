@@ -34,6 +34,7 @@ HEADERS += \
         include/Map.hpp\
         include/Set.hpp\
         include/Random.hpp\
+        src/SetOperationsSpecializator.hpp
 
 
 
