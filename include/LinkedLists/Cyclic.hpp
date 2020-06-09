@@ -18,7 +18,7 @@ namespace exam::lists {
         size_t _size = 0;
 
     public:
-        using Iterator = detail::CyclicForwardIterator<SLLNode*, T, CyclicLinkedList>;
+        using iterator = detail::CyclicForwardIterator<SLLNode*, T, CyclicLinkedList>;
 
         using value_type = T;
 
@@ -33,12 +33,12 @@ namespace exam::lists {
 
         CyclicLinkedList& operator= (const CyclicLinkedList& other);
 
-        Iterator begin();
+        iterator begin();
 
-        Iterator end();
+        iterator end();
 
-        void insert(const T& data, Iterator& iterator);
-        void insert(const T& data, Iterator&& iterator);
+        void insert(const T& data, iterator& iterator);
+        void insert(const T& data, iterator&& iterator);
 
         void erase(const T& data);
 

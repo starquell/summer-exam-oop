@@ -18,7 +18,7 @@ namespace exam::lists {
         size_t _size = 0;
 
     public:
-        using Iterator = detail::ListForwardIterator<SLLNode*, T, SinglyLinkedList>;
+        using iterator = detail::ListForwardIterator<SLLNode*, T, SinglyLinkedList>;
 
         using value_type = T;
 
@@ -33,12 +33,12 @@ namespace exam::lists {
 
         SinglyLinkedList& operator= (const SinglyLinkedList& other);
 
-        Iterator begin();
+        iterator begin();
 
-        Iterator end();
+        iterator end();
 
-        void insert(const T& data, Iterator& iterator);
-        void insert(const T& data, Iterator&& iterator);
+        void insert(const T& data, iterator& iterator);
+        void insert(const T& data, iterator&& iterator);
 
         void erase(const T& data);
 

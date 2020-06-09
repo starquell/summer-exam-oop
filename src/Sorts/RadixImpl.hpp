@@ -82,17 +82,14 @@ namespace exam::sort::detail {
                         counting_digit(positive.begin(), positive.end(), exp);
                     }
             });
-        auto negativeResult = std::async(std::launch::async,
-                 [&negative] () {
-                     auto maxNeg = negative.empty() ? 0 : *max_element(negative.begin(), negative.end());
-                     for (int exp = 1; maxNeg / exp > 0; exp *= 10) {
-                         counting_digit(negative.begin(), negative.end(), exp);
-                     }
-                 });
+
+        auto maxNeg = negative.empty() ? 0 : *max_element(negative.begin(), negative.end());
+        for (int exp = 1; maxNeg / exp > 0; exp *= 10) {
+            counting_digit(negative.begin(), negative.end(), exp);
+        }
 
         using std::swap;
 
-        negativeResult.wait();
         for (int i = negative.size() - 1; i >= 0; --i) {
             auto value = negative[i] * (-1);
             swap(value, *beg);

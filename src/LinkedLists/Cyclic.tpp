@@ -3,13 +3,13 @@
 namespace exam::lists {
 
     template <typename T>
-    typename CyclicLinkedList<T>::Iterator CyclicLinkedList<T>::begin() {
-        return Iterator(_head);
+    typename CyclicLinkedList<T>::iterator CyclicLinkedList<T>::begin() {
+        return iterator(_head);
     }
 
     template <typename T>
-    typename CyclicLinkedList<T>::Iterator CyclicLinkedList<T>::end() {
-        return Iterator(_tail, true);
+    typename CyclicLinkedList<T>::iterator CyclicLinkedList<T>::end() {
+        return iterator(_tail, true);
     }
 
     template <typename T>
@@ -56,7 +56,7 @@ namespace exam::lists {
     }
 
     template <typename T>
-    void CyclicLinkedList<T>::insert(const T& data, Iterator& iterator) {
+    void CyclicLinkedList<T>::insert(const T& data, iterator& iterator) {
         if (!_head) {
             _head = new SLLNode(data);
             _head->_next = _head;
@@ -81,7 +81,7 @@ namespace exam::lists {
     }
 
     template <typename T>
-    void CyclicLinkedList<T>::insert(const T& data, Iterator&& iterator) {
+    void CyclicLinkedList<T>::insert(const T& data, iterator&& iterator) {
         auto iterRef = iterator;
         insert(data, iterRef);
     }

@@ -3,13 +3,13 @@
 namespace exam::lists {
 
     template <typename T>
-    typename SinglyLinkedList<T>::Iterator SinglyLinkedList<T>::begin() {
-        return Iterator(_head);
+    typename SinglyLinkedList<T>::iterator SinglyLinkedList<T>::begin() {
+        return iterator(_head);
     }
 
     template <typename T>
-    typename SinglyLinkedList<T>::Iterator SinglyLinkedList<T>::end() {
-        return Iterator(_tail, true);
+    typename SinglyLinkedList<T>::iterator SinglyLinkedList<T>::end() {
+        return iterator(_tail, true);
     }
 
     template <typename T>
@@ -56,7 +56,7 @@ namespace exam::lists {
     }
 
     template <typename T>
-    void SinglyLinkedList<T>::insert(const T& data, Iterator& iterator) {
+    void SinglyLinkedList<T>::insert(const T& data, iterator& iterator) {
         if (!_head) {
             _head = new SLLNode(data);
             _tail = _head;
@@ -79,7 +79,7 @@ namespace exam::lists {
     }
 
     template <typename T>
-    void SinglyLinkedList<T>::insert(const T& data, Iterator&& iterator) {
+    void SinglyLinkedList<T>::insert(const T& data, iterator&& iterator) {
         auto iterRef = iterator;
         insert(data, iterRef);
     }
