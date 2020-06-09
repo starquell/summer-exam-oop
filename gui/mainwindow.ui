@@ -26,7 +26,7 @@ border-image: url(:pics/Alisochka)
    <layout class="QGridLayout" name="gridLayout_5">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="0">
+      <item row="0" column="0">
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="styleSheet">
          <string notr="true">#stackedWidget{
@@ -361,6 +361,11 @@ padding:10px;
                     <string>Radix</string>
                    </property>
                   </item>
+                  <item>
+                   <property name="text">
+                    <string>Counting</string>
+                   </property>
+                  </item>
                  </widget>
                 </item>
                 <item row="0" column="1">
@@ -396,45 +401,6 @@ padding:10px;
                 <string>Заповнимо ж наші контейнери</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_9">
-                <item row="2" column="0">
-                 <widget class="QComboBox" name="comboBox">
-                  <property name="styleSheet">
-                   <string notr="true">#comboBox{
-background-color: transparent;
-border-image: url(:pics/dialog.png);
-background: none;
-border: none;
-background-repeat: none;
-padding:10px;
-}</string>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>int</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>std::string</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>std::vector&lt;int&gt;</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Ministry</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>std::vector&lt;Ministry&gt;</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
                 <item row="3" column="0" colspan="4">
                  <widget class="QTextBrowser" name="Setup">
                   <property name="styleSheet">
@@ -485,9 +451,6 @@ border-width:4px;
                   </property>
                  </spacer>
                 </item>
-                <item row="9" column="4">
-                 <widget class="QLineEdit" name="Elapsed"/>
-                </item>
                 <item row="4" column="0">
                  <spacer name="verticalSpacer_2">
                   <property name="orientation">
@@ -537,50 +500,6 @@ border-width:4px;
                   </property>
                  </spacer>
                 </item>
-                <item row="2" column="1" colspan="2">
-                 <widget class="QComboBox" name="comboBox_2">
-                  <property name="styleSheet">
-                   <string notr="true">#comboBox_2{
-background-color: transparent;
-border-image: url(:pics/dialog.png);
-background: none;
-border: none;
-background-repeat: none;
-padding:10px;
-}</string>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Double linked list</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>AVL tree</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Splay tree</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Red black tree</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Coalesced hash</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Set</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
                 <item row="5" column="2" colspan="2">
                  <widget class="QPushButton" name="InsertContainer">
                   <property name="styleSheet">
@@ -602,29 +521,6 @@ border-width:4px;
                   </property>
                   <property name="text">
                    <string>Вставити в контейнер</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="3">
-                 <widget class="QPushButton" name="NewSession">
-                  <property name="styleSheet">
-                   <string notr="true">#NewSession{
-background-color: transparent;
-border-image: url(:pics/dialog.png);
-background: none;
-border: none;
-background-repeat: none;
-padding:10px;
-}
-#NewSession:hover{
-border-width:3px;
-}
-#NewSession:pressed{
-border-width:4px;
-}</string>
-                  </property>
-                  <property name="text">
-                   <string>Новий контейнер</string>
                   </property>
                  </widget>
                 </item>
@@ -668,7 +564,79 @@ padding:10px;
                   </property>
                  </spacer>
                 </item>
-                <item row="0" column="4" rowspan="9">
+                <item row="2" column="0" colspan="2">
+                 <widget class="QComboBox" name="comboBox_2">
+                  <property name="styleSheet">
+                   <string notr="true">#comboBox_2{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Single linked list</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Double linked list</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Double linked cycled</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>AVL tree</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Splay tree</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Red black tree</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>std::unordered_set</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="2" column="2" colspan="2">
+                 <widget class="QPushButton" name="NewSession">
+                  <property name="styleSheet">
+                   <string notr="true">#NewSession{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}
+#NewSession:hover{
+border-width:3px;
+}
+#NewSession:pressed{
+border-width:4px;
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>Новий контейнер</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="4" rowspan="10">
                  <widget class="QListView" name="currentContainer">
                   <property name="styleSheet">
                    <string notr="true">#currentContainer{

@@ -9,7 +9,7 @@
 #include "Sorts/Heap.hpp"
 #include "Sorts/Insertion.hpp"
 #include "Sorts/Quick.hpp"
-#include "Sorts/Merge.hpp"
+//#include "Sorts/Merge.hpp"
 #include "Sorts/Radix.hpp"
 #include "Sorts/Selection.hpp"
 #include "Sorts/Counting.hpp"

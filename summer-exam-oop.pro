@@ -20,12 +20,15 @@ INCLUDEPATH += include\
             include/Trees
 
 SOURCES += \
+    gui/SortSession.cpp \
+    gui/containersession.cpp \
         gui/main.cpp \
         gui/mainwindow.cpp\
 
 
 HEADERS += \
     gui/SortSession.h \
+    gui/containersession.hpp \
         gui/mainwindow.hpp\
         include/AllExam.hpp\
         include/Map.hpp\
