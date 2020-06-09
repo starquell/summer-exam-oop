@@ -3,6 +3,12 @@
 
 #include<QStringListModel>
 #include<any>
+#include <AnySet.hpp>
+#include "AVL.hpp"
+#include "RedBlack.hpp"
+#include "Splay.hpp"
+#include "SinglyLinked.hpp"
+#include <unordered_set>
 
 namespace Ui {
 class MainWindow;
@@ -28,15 +34,17 @@ public:
 
     void startNewSession();
 
-//    void insert();
+    void insert();
 
-//    void erase();
-private:
+    void erase();
+
+    private:
     ContainerBase _curPolicy;
     void _display();
     Ui::MainWindow* _ui;
     QStringListModel* _setModel;
-    std::any _set;
+    AnySet<std::string, tree::SplayTree, tree::RedBlackTree, tree::AVLTree, lists::SinglyLinkedList,
+             lists::DoubleLinkedList, lists::CyclicLinkedList, std::unordered_set> _set;
 
 };
 }

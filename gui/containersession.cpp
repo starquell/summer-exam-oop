@@ -16,7 +16,7 @@ auto to_container_base_policy(std::size_t i)
 }
 }//namespace detail
 
-ContainerSession::ContainerSession(Ui::MainWindow* ui): _ui(ui){}
+ContainerSession::ContainerSession(Ui::MainWindow* ui): _ui(ui), _set(Set<std::string, lists::SinglyLinkedList>{}){}
 
 
 void ContainerSession::startNewSession(){
@@ -25,40 +25,56 @@ void ContainerSession::startNewSession(){
 
     switch (basePolicy){
     case SingleLinked:
-        _set = Set<int, lists::SinglyLinkedList>();
-        _ui->Setup->setPlainText("SingleLinkedList<int>");
+        _set.assign( Set<std::string, lists::SinglyLinkedList>());
+        _ui->Setup->setPlainText("SingleLinkedList<std::string>");
         break;
     case DoubleLinked:
-        _set = Set<int, lists::DoubleLinkedList>();
-        _ui->Setup->setPlainText("DoubleLinkedList<int>");
+        _set.assign( Set<std::string, lists::DoubleLinkedList>());
+        _ui->Setup->setPlainText("DoubleLinkedList<std::string>");
         break;
     case DoubleCycled:
-        _set = Set<int, lists::CyclicLinkedList>();
-        _ui->Setup->setPlainText("CyclicLinkedList<int>");
+        _set.assign( Set<std::string, lists::CyclicLinkedList>());
+        _ui->Setup->setPlainText("CyclicLinkedList<std::string>");
         break;
     case AVL:
-        _set = Set<int, tree::AVLTree>();
-        _ui->Setup->setPlainText("AVL<int>");
+        _set.assign( Set<std::string, tree::AVLTree>());
+        _ui->Setup->setPlainText("AVL<std::string>");
         break;
     case Splay:
-        _set = Set<int, tree::SplayTree>();
-        _ui->Setup->setPlainText("Splay<int>");
+        _set.assign( Set<std::string, tree::SplayTree>());
+        _ui->Setup->setPlainText("Splay<std::string>");
         break;
     case RB:
-        _set = Set<int, tree::RedBlackTree>();
-        _ui->Setup->setPlainText("RedBlack<int>");
+        _set.assign(Set<std::string, tree::RedBlackTree>());
+        _ui->Setup->setPlainText("RedBlack<std::string>");
         break;
     case StdUnorderedSet:
-        _set = Set<int, std::unordered_set>();
-        _ui->Setup->setPlainText("std::unordered_set<int>");
+        _set.assign( Set<std::string, std::unordered_set>());
+        _ui->Setup->setPlainText("std::unordered_set<std::string>");
         break;
     }
 }
 
 void ContainerSession::_display(){
-    delete(_setModel);
     _setModel = new QStringListModel();
     QStringList view;
+    for(const auto& i: _set)
+        view << QString::fromStdString(i);
+    _setModel->setStringList(view);
+    _ui->currentContainer->setModel(_setModel);
+}
+
+void ContainerSession::insert(){
+    std::string val = _ui->ValueToInsert->toPlainText().toStdString();
+    _set.insert(val);
+    _display();
+}
+
+
+void ContainerSession::erase(){
+    std::string val = _ui->ValueToInsert->toPlainText().toStdString();
+    _set.erase(val);
+    _display();
 }
 
 

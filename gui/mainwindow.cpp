@@ -1,10 +1,11 @@
 #include "mainwindow.hpp"
-#include "ui_mainwindow.h"
+
 #include <QMediaPlayer>
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <gui/containersession.hpp>
 #include <AllExam.hpp>
+#include "ui_mainwindow.h"
 
 namespace exam{
 MainWindow::MainWindow(QWidget *parent) :
@@ -13,6 +14,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentIndex(0);
+    connect(ui->InsertContainer,SIGNAL(clicked()),this,SLOT(on_insertContainer()));
+    connect(ui->Erase, SIGNAL(clicked()), this, SLOT(on_Erase_clicked()));
+    connect(ui->GenerateValue, SIGNAL(clicked()), this, SLOT(on_gen()));
     _music = new QMediaPlayer();
     _music->setVolume(70);
 
@@ -58,9 +62,25 @@ void MainWindow::closeEvent(QCloseEvent *event)
     this->_music->play();
 
 }
+
+void MainWindow::on_Erase_clicked(){
+    _containerSession->erase();
 }
 
-void exam::MainWindow::on_NewSession_clicked()
+void MainWindow::on_NewSession_clicked()
 {
     _containerSession->startNewSession();
 }
+
+void MainWindow::on_insertContainer(){
+    _containerSession->insert();
+}
+
+void MainWindow::on_gen(){
+    ui->ValueToInsert->setPlainText(QString::fromStdString(random<std::string>()));
+}
+}//namespace exam
+
+
+
+

@@ -3,12 +3,12 @@
 namespace exam::lists {
 
     template <typename T>
-    typename SinglyLinkedList<T>::iterator SinglyLinkedList<T>::begin() {
+    typename SinglyLinkedList<T>::iterator SinglyLinkedList<T>::begin() const {
         return iterator(_head);
     }
 
     template <typename T>
-    typename SinglyLinkedList<T>::iterator SinglyLinkedList<T>::end() {
+    typename SinglyLinkedList<T>::iterator SinglyLinkedList<T>::end() const{
         return iterator(_tail, true);
     }
 

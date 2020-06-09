@@ -25,6 +25,12 @@ private slots:
 
     void on_NewSession_clicked();
 
+    void on_insertContainer();
+
+    void on_Erase_clicked();
+
+    void on_gen();
+
 private:
     void closeEvent(QCloseEvent *event);
     ContainerSession *_containerSession;
