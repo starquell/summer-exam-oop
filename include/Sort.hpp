@@ -6,6 +6,9 @@
 
 namespace exam::sort {
 
+    /**
+     *  @brief Class for sorting value ranges
+     */
     template <typename T>
     class Sorter {
     public:
@@ -18,7 +21,8 @@ namespace exam::sort {
             Counting,
             Radix,
             Bucket,
-            Heap
+            Heap,
+            BinarySearchTree
         };
 
         auto sort_type (SortType type) noexcept -> Sorter&;

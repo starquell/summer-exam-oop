@@ -4,7 +4,7 @@
 #include "../include/Sorts/Bucket.hpp"
 #include "../include/Sorts/Counting.hpp"
 #include "../include/Sorts/Radix.hpp"
-//#include "../include/Sorts/Merge.hpp"
+#include "../include/Sorts/Merge.hpp"
 #include "../include/Sorts/Selection.hpp"
 #include "../include/Sorts/Insertion.hpp"
 #include "../include/Random.hpp"
@@ -28,8 +28,6 @@ void test_sort (Func&& func,
 }
 
 TEST_CASE ("Quick sort") {
-
-   // test_sort(quick_sort<std::vector<int>::iterator, std::less<>>);
 
 
     SUBCASE("Single thread") {
@@ -69,6 +67,49 @@ TEST_CASE ("Quick sort") {
 
                 quick_sort(vec.begin(), vec.end(), ExecutionPolicy::Parallel, std::greater{});
                 REQUIRE(std::is_sorted(vec.begin(), vec.end(), std::greater{}));
+            }
+        }
+    }
+}
+
+TEST_CASE ("Merge sort") {
+
+            SUBCASE("Single thread") {
+                SUBCASE("Less comparator") {
+            for (auto i = 10; i <= 100000; i *= 100) {
+                auto vec = exam::random<std::vector<int>> (i, 0, i);
+
+                merge_sort(vec.begin(), vec.end());
+                        REQUIRE(std::is_sorted(vec.begin(), vec.end()));
+            }
+        }
+
+                SUBCASE("Greater comparator") {
+            for (auto i = 100; i <= 100000; i *= 100) {
+                auto vec = exam::random<std::vector<int>> (i, 0, i);
+
+                merge_sort(vec.begin(), vec.end(), std::greater{});
+                        REQUIRE(std::is_sorted(vec.begin(), vec.end(), std::greater{}));
+            }
+        }
+    }
+
+            SUBCASE ("Parallel") {
+                SUBCASE("Less comparator") {
+            for (auto i = 10000; i <= 100000; i *= 10) {
+                auto vec = exam::random<std::vector<int>> (i, 0, i);
+
+                merge_sort(vec.begin(), vec.end(), ExecutionPolicy::Parallel);
+                        REQUIRE(std::is_sorted(vec.begin(), vec.end()));
+            }
+        }
+
+                SUBCASE("Greater comparator") {
+            for (auto i = 10000; i <= 100000; i *= 10) {
+                auto vec = exam::random<std::vector<int>> (i, 0, i);
+
+                merge_sort(vec.begin(), vec.end(), ExecutionPolicy::Parallel, std::greater{});
+                        REQUIRE(std::is_sorted(vec.begin(), vec.end(), std::greater{}));
             }
         }
     }

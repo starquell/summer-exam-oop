@@ -1,3 +1,9 @@
 #pragma once
 
-namespace exam {}
+namespace exam {
+
+    template <typename Key, typename Value, template <typename...> typename Container>
+    class Map {
+        
+    };
+}

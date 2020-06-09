@@ -20,7 +20,7 @@ void test_set (Container<int>) {
 
     set.erase(5);
 
-    CHECK (set == MySet {1, 3});
+     CHECK (set == MySet {1, 3});
     CHECK (set.union_with(MySet {3, 5, 6, 7}) == MySet {1, 3, 5, 6, 7});
     CHECK (set.difference(MySet {3, 5, 6, 7}) == MySet {1});
     CHECK (set.intersection(MySet {3, 5, 6, 7}) == MySet {3});

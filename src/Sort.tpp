@@ -7,6 +7,7 @@
 #include "../include/Sorts/Radix.hpp"
 #include "../include/Sorts/Heap.hpp"
 #include "../include/Sorts/Bucket.hpp"
+#include "../include/Sorts/BSTSort.hpp"
 
 
 namespace exam::sort {
@@ -45,9 +46,23 @@ namespace exam::sort {
                 merge_sort(begin, end, _policy, _comp);
                 break;
             case SortType::Bucket:
-                bucket_sort(begin, end, _policy, _comp);
+                bucket_sort(begin, end, _policy);
                 break;
-                //TODO
+            case SortType::Radix:
+                radix_sort(begin, end, _policy);
+                break;
+            case SortType::Selection:
+                selection_sort(begin, end, _comp);
+                break;
+            case SortType::Counting:
+                counting_sort(begin, end);
+                break;
+            case SortType::Insertion:
+                insertion_sort(begin, end, _comp);
+                break;
+            case SortType::BinarySearchTree:
+                bst_sort(begin, end, _comp);
+                break;
         }
     }
 }
