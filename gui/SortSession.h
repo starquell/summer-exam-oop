@@ -1,0 +1,4 @@
+#ifndef SORTSESSION_H
+#define SORTSESSION_H
+
+#endif // SORTSESSION_H
