@@ -13,8 +13,24 @@
 
 using namespace exam::sort;
 
+template <typename Func, typename Comp = std::less<>>
+void test_sort (Func&& func,
+                ExecutionPolicy policy = ExecutionPolicy::Default,
+                Comp&& comp = Comp{}) {
+
+    for (auto i = 10; i <= 100000; i *= 20) {
+        auto random_vec = exam::random<std::vector<int>>(i, 0, i);
+
+        func(random_vec.begin(), random_vec.end(), comp);
+
+        REQUIRE (std::is_sorted(random_vec.begin(), random_vec.end()));
+    }
+}
 
 TEST_CASE ("Quick sort") {
+
+   // test_sort(quick_sort<std::vector<int>::iterator, std::less<>>);
+
 
     SUBCASE("Single thread") {
         SUBCASE("Less comparator") {
@@ -25,6 +41,7 @@ TEST_CASE ("Quick sort") {
             REQUIRE(std::is_sorted(vec.begin(), vec.end()));
             }
         }
+
 
         SUBCASE("Greater comparator") {
         for (auto i = 100; i <= 1000000; i *= 100) {
@@ -98,16 +115,6 @@ TEST_CASE ("Bucket sort") {
             }
         }
     }
-    const auto test_sort = [] (const auto& func) {
-        for (auto i = 10; i <= 100000; i *= 20) {
-            auto random_vec = exam::random<std::vector<int>>(i);
-
-            func(random_vec.begin(), random_vec.end());
-
-            REQUIRE (std::is_sorted(random_vec.begin(), random_vec.end()));
-        }
-    };
-
 }
 
 TEST_CASE ("Counting sort") {

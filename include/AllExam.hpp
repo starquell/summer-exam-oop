@@ -13,6 +13,7 @@
 #include "Sorts/Radix.hpp"
 #include "Sorts/Selection.hpp"
 #include "Sorts/Counting.hpp"
+#include "Sort.hpp"
 
 #include "LinkedLists/Cyclic.hpp"
 #include "LinkedLists/DoubleLinked.hpp"
@@ -32,3 +33,4 @@
 
 #include "ToString.hpp"
 #include "Random.hpp"
+

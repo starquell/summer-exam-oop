@@ -20,7 +20,6 @@ addons:
       - libpthread-stubs0-dev
 
 
-
 env:
   - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
   - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release

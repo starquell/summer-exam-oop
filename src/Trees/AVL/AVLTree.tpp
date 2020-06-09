@@ -1,4 +1,4 @@
-#pragma once
+    #pragma once
 
 #include "../NodeBase.hpp"
 #include "AVLNodeUtilities.hpp"

@@ -3,13 +3,14 @@
 namespace exam::lists {
 
     template <typename T>
-    typename DoubleLinkedList<T>::iterator DoubleLinkedList<T>::begin() {
+    typename DoubleLinkedList<T>::iterator DoubleLinkedList<T>::begin() const {
         return iterator(_head);
     }
 
     template <typename T>
-    typename DoubleLinkedList<T>::iterator DoubleLinkedList<T>::end() {
+    typename DoubleLinkedList<T>::iterator DoubleLinkedList<T>::end() const {
         return iterator(_tail, true);
+
     }
 
     template <typename T>

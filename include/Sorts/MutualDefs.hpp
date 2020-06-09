@@ -6,5 +6,4 @@ namespace exam::sort {
         Default,
         Parallel
     };
-
 }

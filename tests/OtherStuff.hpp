@@ -15,3 +15,4 @@ TEST_CASE ("To String") {
     REQUIRE (exam::to_string(std::array {"somebody", "once", "told", "me"}, " (0_0) ")
              == "somebody (0_0) once (0_0) told (0_0) me");
 }
+

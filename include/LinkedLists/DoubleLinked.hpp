@@ -20,6 +20,7 @@ namespace exam::lists {
         size_t _size = 0;
 
     public:
+
         using iterator = detail::ListBidirectIterator<DLLNode*, T, DoubleLinkedList>;
 
         using value_type = T;
@@ -35,9 +36,10 @@ namespace exam::lists {
 
         DoubleLinkedList& operator= (const DoubleLinkedList& other);
 
-        iterator begin();
 
-        iterator end();
+        iterator begin() const;
+
+        iterator end() const;
 
         void insert(const T& data, iterator iterator);
 

@@ -33,9 +33,10 @@ namespace exam::lists {
 
         CyclicLinkedList& operator= (const CyclicLinkedList& other);
 
-        iterator begin();
 
-        iterator end();
+        iterator begin() const;
+
+        iterator end() const;
 
         void insert(const T& data, iterator& iterator);
         void insert(const T& data, iterator&& iterator);
