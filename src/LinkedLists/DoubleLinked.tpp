@@ -4,12 +4,12 @@ namespace exam::lists {
 
     template <typename T>
     typename DoubleLinkedList<T>::iterator DoubleLinkedList<T>::begin() {
-        return Iterator(_head);
+        return iterator(_head);
     }
 
     template <typename T>
     typename DoubleLinkedList<T>::iterator DoubleLinkedList<T>::end() {
-        return Iterator(_tail, true);
+        return iterator(_tail, true);
     }
 
     template <typename T>
