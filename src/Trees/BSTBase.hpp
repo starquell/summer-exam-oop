@@ -28,7 +28,7 @@ namespace exam::tree::detail {
         /**
          *  @return Iterator to key in tree, if not found - end()
          */
-        iterator search (const T& key) noexcept;
+        iterator find (const T& key) const noexcept;
 
         /**
          *  @brief Inserts key to tree

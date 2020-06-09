@@ -51,14 +51,14 @@ SCENARIO_TEMPLATE("Red-Black and Splay Tree", Tree,
 
     SUBCASE("Insert") {
         tree.insert(100);
-                REQUIRE(tree.search(100));
+                REQUIRE(tree.find(100));
     }
 
             SUBCASE("Erase") {
-                REQUIRE(tree.search(elems[0]));
+                REQUIRE(tree.find(elems[0]));
                 tree.erase(elems[0]);
 
-                REQUIRE_FALSE(tree.search(elems[0]));
+                REQUIRE_FALSE(tree.find(elems[0]));
     }
 
             SUBCASE("Size") {

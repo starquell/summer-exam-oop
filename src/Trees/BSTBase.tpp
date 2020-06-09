@@ -10,7 +10,7 @@
 namespace exam::tree::detail {
 
     template <typename T, typename Compare, typename DerivedTree>
-    auto BSTBase<T, Compare, DerivedTree>::search (const T& key) noexcept
+    auto BSTBase<T, Compare, DerivedTree>::find (const T& key) const noexcept
         -> typename BSTBase<T, Compare, DerivedTree>::iterator
     {
         auto found = detail::find(_root, key, _comp);

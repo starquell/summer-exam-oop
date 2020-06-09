@@ -6,7 +6,9 @@
 #include "../include/Sorts/Radix.hpp"
 #include "../include/Sorts/Selection.hpp"
 #include "../include/Sorts/Insertion.hpp"
-//#include "../include/Sorts/Merge.hpp"
+#include "../include/Sorts/Merge.hpp"
+#include "../include/Sorts/Heap.hpp"
+#include "../include/Sorts/BSTSort.hpp"
 #include "../include/Random.hpp"
 
 using namespace exam::sort;
@@ -43,21 +45,21 @@ void parallel_bucket (benchmark::State& state) {
     }
 }
 
-//void default_merge (benchmark::State& state) {
-//    auto vec = exam::random<std::vector<int>> (state.range(0), 0, state.range(0));
-//
-//    for (auto _ : state) {
-//        merge_sort(vec.begin(), vec.end());
-//    }
-//}
-//
-//void parallel_merge (benchmark::State& state) {
-//    auto vec = exam::random<std::vector<int>> (state.range(0), 0, state.range(0));
-//
-//    for (auto _ : state) {
-//        merge_sort(vec.begin(), vec.end(), ExecutionPolicy::Parallel);
-//    }
-//}
+void default_merge (benchmark::State& state) {
+    auto vec = exam::random<std::vector<int>> (state.range(0), 0, state.range(0));
+
+    for (auto _ : state) {
+        merge_sort(vec.begin(), vec.end());
+    }
+}
+
+void parallel_merge (benchmark::State& state) {
+    auto vec = exam::random<std::vector<int>> (state.range(0), 0, state.range(0));
+
+    for (auto _ : state) {
+        merge_sort(vec.begin(), vec.end(), ExecutionPolicy::Parallel);
+    }
+}
 
 void default_radix (benchmark::State& state) {
     auto vec = exam::random<std::vector<int>> (state.range(0), -state.range(0), state.range(0));
@@ -99,14 +101,34 @@ void default_insertion (benchmark::State& state) {
     }
 }
 
-BENCHMARK(default_quick)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
-BENCHMARK(parallel_quick)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
-BENCHMARK(default_bucket)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
-BENCHMARK(parallel_bucket)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
-//BENCHMARK(default_merge)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
-//BENCHMARK(parallel_merge)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
-BENCHMARK(default_radix)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
-BENCHMARK(parallel_radix)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
-BENCHMARK(default_counting)->RangeMultiplier(10)->Range(100, 10000000)->Unit(benchmark::kMillisecond);
-BENCHMARK(default_selection)->RangeMultiplier(10)->Range(100, 100000)->Unit(benchmark::kMillisecond);
-BENCHMARK(default_insertion)->RangeMultiplier(10)->Range(100, 100000)->Unit(benchmark::kMillisecond);
+void default_heap (benchmark::State& state) {
+    auto vec = exam::random<std::vector<int>> (state.range(0), 0, state.range(0));
+
+    for (auto _ : state) {
+        heap_sort(vec.begin(), vec.end());
+    }
+}
+
+void default_bst (benchmark::State& state) {
+    auto vec = exam::random<std::vector<int>> (state.range(0), 0, state.range(0));
+
+    for (auto _ : state) {
+        bst_sort(vec.begin(), vec.end());
+    }
+}
+
+
+
+BENCHMARK(default_quick)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
+BENCHMARK(parallel_quick)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
+BENCHMARK(default_bucket)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
+BENCHMARK(parallel_bucket)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
+BENCHMARK(default_merge)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
+BENCHMARK(parallel_merge)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
+BENCHMARK(default_radix)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
+BENCHMARK(parallel_radix)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
+BENCHMARK(default_counting)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
+BENCHMARK(default_selection)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
+BENCHMARK(default_insertion)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
+BENCHMARK(default_heap)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);
+BENCHMARK(default_bst)->RangeMultiplier(10)->Range(100, 1e6)->Unit(benchmark::kMillisecond);

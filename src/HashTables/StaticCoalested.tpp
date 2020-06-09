@@ -3,6 +3,7 @@
 #include "../../include/HashTables/StaticCoalested.hpp"
 
 #include <cassert>
+#include <vector>
 
 namespace exam::hashtable {
 

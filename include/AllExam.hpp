@@ -13,10 +13,13 @@
 #include "Sorts/Radix.hpp"
 #include "Sorts/Selection.hpp"
 #include "Sorts/Counting.hpp"
+#include "Sorts/BSTSort.hpp"
+
+#include "Sort.hpp"
 
 #include "LinkedLists/Cyclic.hpp"
 #include "LinkedLists/DoubleLinked.hpp"
-#include "LinkedLists/SinglyLinked.hpp.hpp"
+#include "LinkedLists/SinglyLinked.hpp"
 
 #include "Subjects/Book.hpp"
 #include "Subjects/Organization.hpp"
@@ -29,6 +32,8 @@
 
 #include "Map.hpp"
 #include "Set.hpp"
+
+#include "AnySet.hpp"
 
 #include "ToString.hpp"
 #include "Random.hpp"

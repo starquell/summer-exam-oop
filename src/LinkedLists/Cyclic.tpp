@@ -3,12 +3,12 @@
 namespace exam::lists {
 
     template <typename T>
-    typename CyclicLinkedList<T>::iterator CyclicLinkedList<T>::begin() {
+    typename CyclicLinkedList<T>::iterator CyclicLinkedList<T>::begin() const {
         return iterator(_head);
     }
 
     template <typename T>
-    typename CyclicLinkedList<T>::iterator CyclicLinkedList<T>::end() {
+    typename CyclicLinkedList<T>::iterator CyclicLinkedList<T>::end() const {
         return iterator(_tail, true);
     }
 

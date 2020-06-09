@@ -14,6 +14,7 @@ namespace exam::sort {
     }
 
 
+
     template <typename Iter, typename Comp = std::less<>>
     inline void quick_sort (Iter begin,
                             Iter end,

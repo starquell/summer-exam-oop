@@ -4,7 +4,7 @@
 #include "../include/Sorts/Bucket.hpp"
 #include "../include/Sorts/Counting.hpp"
 #include "../include/Sorts/Radix.hpp"
-//#include "../include/Sorts/Merge.hpp"
+#include "../include/Sorts/Merge.hpp"
 #include "../include/Sorts/Selection.hpp"
 #include "../include/Sorts/Insertion.hpp"
 #include "../include/Random.hpp"
@@ -13,8 +13,22 @@
 
 using namespace exam::sort;
 
+template <typename Func, typename Comp = std::less<>>
+void test_sort (Func&& func,
+                ExecutionPolicy policy = ExecutionPolicy::Default,
+                Comp&& comp = Comp{}) {
+
+    for (auto i = 10; i <= 100000; i *= 20) {
+        auto random_vec = exam::random<std::vector<int>>(i, 0, i);
+
+        func(random_vec.begin(), random_vec.end(), comp);
+
+        REQUIRE (std::is_sorted(random_vec.begin(), random_vec.end()));
+    }
+}
 
 TEST_CASE ("Quick sort") {
+
 
     SUBCASE("Single thread") {
         SUBCASE("Less comparator") {
@@ -25,6 +39,7 @@ TEST_CASE ("Quick sort") {
             REQUIRE(std::is_sorted(vec.begin(), vec.end()));
             }
         }
+
 
         SUBCASE("Greater comparator") {
         for (auto i = 100; i <= 1000000; i *= 100) {
@@ -52,6 +67,49 @@ TEST_CASE ("Quick sort") {
 
                 quick_sort(vec.begin(), vec.end(), ExecutionPolicy::Parallel, std::greater{});
                 REQUIRE(std::is_sorted(vec.begin(), vec.end(), std::greater{}));
+            }
+        }
+    }
+}
+
+TEST_CASE ("Merge sort") {
+
+            SUBCASE("Single thread") {
+                SUBCASE("Less comparator") {
+            for (auto i = 10; i <= 100000; i *= 100) {
+                auto vec = exam::random<std::vector<int>> (i, 0, i);
+
+                merge_sort(vec.begin(), vec.end());
+                        REQUIRE(std::is_sorted(vec.begin(), vec.end()));
+            }
+        }
+
+                SUBCASE("Greater comparator") {
+            for (auto i = 100; i <= 100000; i *= 100) {
+                auto vec = exam::random<std::vector<int>> (i, 0, i);
+
+                merge_sort(vec.begin(), vec.end(), std::greater{});
+                        REQUIRE(std::is_sorted(vec.begin(), vec.end(), std::greater{}));
+            }
+        }
+    }
+
+            SUBCASE ("Parallel") {
+                SUBCASE("Less comparator") {
+            for (auto i = 10000; i <= 100000; i *= 10) {
+                auto vec = exam::random<std::vector<int>> (i, 0, i);
+
+                merge_sort(vec.begin(), vec.end(), ExecutionPolicy::Parallel);
+                        REQUIRE(std::is_sorted(vec.begin(), vec.end()));
+            }
+        }
+
+                SUBCASE("Greater comparator") {
+            for (auto i = 10000; i <= 100000; i *= 10) {
+                auto vec = exam::random<std::vector<int>> (i, 0, i);
+
+                merge_sort(vec.begin(), vec.end(), ExecutionPolicy::Parallel, std::greater{});
+                        REQUIRE(std::is_sorted(vec.begin(), vec.end(), std::greater{}));
             }
         }
     }
@@ -98,16 +156,6 @@ TEST_CASE ("Bucket sort") {
             }
         }
     }
-    const auto test_sort = [] (const auto& func) {
-        for (auto i = 10; i <= 100000; i *= 20) {
-            auto random_vec = exam::random<std::vector<int>>(i);
-
-            func(random_vec.begin(), random_vec.end());
-
-            REQUIRE (std::is_sorted(random_vec.begin(), random_vec.end()));
-        }
-    };
-
 }
 
 TEST_CASE ("Counting sort") {

@@ -1,116 +1,142 @@
-    #pragma once
+#pragma once
 
-    #include "../include/Set.hpp"
-    #include "SetOperationsSpecializator.hpp"
+#include "SetOperations.hpp"
+#include "../include/Set.hpp"
 
-    #include <algorithm>
+
+#include <algorithm>
 
     namespace exam {
 
-        template<typename Container>
-        Set<Container>::Set(std::initializer_list<value_type> elems)
+        template <typename Key, template<typename...> typename Container>
+        Set<Key, Container>::Set(std::initializer_list<value_type> elems)
                 : _container(std::move(elems))
         {}
 
-        template<typename Container>
+        template <typename Key, template<typename...> typename Container>
         template<typename Iter>
-        Set<Container>::Set(Iter begin, Iter end)
+        Set<Key, Container>::Set(Iter begin, Iter end)
                 : _container (begin, end)
         {}
 
-        template<typename Container>
-        inline auto Set<Container>::insert(const value_type &value) -> iterator
+        template <typename Key, template<typename...> typename Container>
+        inline void Set<Key, Container>::insert(const value_type &value)
         {
-            return Impl::insert(_container, value);
+            Impl::insert(_container, value);
         }
 
-        template<typename Container>
-        inline auto Set<Container>::insert(iterator, const value_type &value) -> iterator
-        {
-            return Impl::insert(_container, value);
-        }
-
-
-        template<typename Container>
-        inline void Set<Container>::erase(const value_type &value)
+        template <typename Key, template<typename...> typename Container>
+        inline void Set<Key, Container>::erase(const value_type &value)
         {
             Impl::erase(_container, value);
         }
 
-        template<typename Container>
-        inline auto Set<Container>::contains(const value_type &value) const noexcept -> bool
+        template <typename Key, template<typename...> typename Container>
+        inline auto Set<Key, Container>::find(const value_type &value) const noexcept -> iterator
         {
-            return Impl::contains(_container, value);
+            return Impl::find(_container, value);
         }
 
-        template<typename Container>
-        template<typename OtherContainer>
-        auto Set<Container>::union_with(const Set <OtherContainer> &other) const -> Set <Container>
+        template <typename Key, template<typename...> typename Container>
+        inline auto Set<Key, Container>::contains(const value_type &value) const noexcept -> bool
         {
-            Set<Container> result = *this;
+            return find(value) != end();
+        }
 
-            std::copy(other.begin(), other.end(), std::inserter(result, result.end()));
+        template<typename Key, template<typename...> typename Container>
+        template<template<typename...> typename OtherContainer>
+        auto Set<Key, Container>::union_with(const Set <Key, OtherContainer> &other) const -> Set <Key, Container>
+        {
+            Set<Key, Container> result = *this;
+
+            for (const auto& elem : other) {
+                result.insert(elem);
+
+            }
 
             return result;
         }
 
-        template<typename Container>
-        template<typename OtherContainer>
-        auto Set<Container>::intersection(const Set <OtherContainer> &other) const -> Set <Container>
+        template<typename Key, template<typename...> typename Container>
+        template<template<typename...> typename OtherContainer>
+        auto Set<Key, Container>::intersection(const Set <Key, OtherContainer> &other) const -> Set <Key, Container>
         {
-            Set<Container> result;
+            Set<Key, Container> result;
 
-            std::copy_if(other.begin(), other.end(),
-                        std::inserter(result, result.end()),
-                        [this] (const auto& elem) {
-                return contains(elem);
-            });
+            for (const auto& elem : other) {
+                if (contains(elem)) {
+                    result.insert(elem);
+                }
+            }
 
             return result;
         }
 
-        template<typename Container>
-        template<typename OtherContainer>
-        auto Set<Container>::difference(const Set <OtherContainer> &other) const -> Set <Container>
+        template<typename Key, template<typename...> typename Container>
+        template<template<typename...> typename OtherContainer>
+        auto Set<Key, Container>::difference(const Set <Key, OtherContainer> &other) const -> Set <Key, Container>
         {
-            Set<Container> result;
+            Set<Key, Container> result;
 
-            std::copy_if(begin(), end(), std::inserter(result, result.end()),
-                    [other] (const auto& elem) {
-                return !other.contains(elem);
-            });
+
+            for (const auto& elem : *this) {
+                if (!other.contains(elem)) {
+                    result.insert(elem);
+                }
+            }
 
             return result;
         }
 
-        template<typename Container>
-        template<typename OtherContainer>
-        auto Set<Container>::symmetric_difference(const Set <OtherContainer> &other) const -> Set <Container>
+        template<typename Key, template<typename...> typename Container>
+        template<template<typename...> typename OtherContainer>
+        auto Set<Key, Container>::symmetric_difference(const Set <Key, OtherContainer> &other) const -> Set <Key, Container>
         {
-            Set<Container> result;
+            Set<Key, Container> result;
 
-            std::copy_if(begin(), end(), std::inserter(result, result.end()),
-                         [&other] (const auto& elem) {
-                             return !other.contains(elem);
-            });
+            for (const auto& elem : *this) {
+                if (!other.contains(elem)) {
+                    result.insert(elem);
+                }
+            }
 
-            std::copy_if(other.begin(), other.end(), std::inserter(result, result.end()),
-                         [this] (const auto& elem) {
-                             return !contains(elem);
-            });
+            for (const auto& elem : other) {
+                if (!contains(elem)) {
+                    result.insert(elem);
+                }
+            }
 
             return result;
         }
 
-        template<typename Container>
-        inline auto Set<Container>::begin() const noexcept -> iterator
+        template<typename Key, template<typename...> typename Container>
+        inline auto Set<Key, Container>::begin() const noexcept -> iterator
         {
             return _container.begin();
         }
 
-        template<typename Container>
-        inline auto Set<Container>::end() const noexcept -> iterator
+        template<typename Key, template<typename...> typename Container>
+        inline auto Set<Key, Container>::end() const noexcept -> iterator
         {
             return _container.end();
+        }
+
+        template<typename Key, template<typename...> typename Container>
+        template<template<typename> typename OtherContainer>
+        Set<Key, Container>::Set(const Set <Key, OtherContainer> &other) {
+            for (const auto& elem : other) {
+                insert(elem);
+            }
+        }
+
+        template<typename Key, template<typename...> typename Container>
+        template<template<typename> typename OtherContainer>
+        auto Set<Key, Container>::operator=(const Set <Key, OtherContainer> &other) -> Set<Key, Container>&
+        {
+            *this = Set<Key, Container>{};
+            for (const auto& elem : other) {
+                insert(elem);
+            }
+            return *this;
         }
     }
