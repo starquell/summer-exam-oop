@@ -33,6 +33,20 @@ TEST_CASE("DLL") {
         REQUIRE(*(iterator++) == 24);
     }
 
+    SUBCASE("Empty list constructor") {
+        auto list = DoubleLinkedList<int>();
+
+        REQUIRE(list.size() == 0);
+        list.insert(5, list.begin());
+        REQUIRE(list.size() == 1);
+        REQUIRE(*(list.begin()) == 5);
+        list.erase(5);
+        REQUIRE(list.size() == 0);
+        list.insert(5, list.begin());
+        REQUIRE(list.size() == 1);
+        REQUIRE(*(list.begin()) == 5);
+    }
+
     auto list = DoubleLinkedList<int>(elems.begin(), elems.end());
 
     SUBCASE("Copy constructor") {
@@ -122,6 +136,20 @@ SCENARIO_TEMPLATE("Singly linked lists", List,
         REQUIRE(*(iterator++) == 103);
         REQUIRE(*(iterator++)== 2);
         REQUIRE(*(iterator++) == 24);
+    }
+
+    SUBCASE("Empty list constructor") {
+        auto list = List();
+
+        REQUIRE(list.size() == 0);
+        list.insert(5, list.begin());
+        REQUIRE(list.size() == 1);
+        REQUIRE(*(list.begin()) == 5);
+        list.erase(5);
+        REQUIRE(list.size() == 0);
+        list.insert(5, list.begin());
+        REQUIRE(list.size() == 1);
+        REQUIRE(*(list.begin()) == 5);
     }
 
     auto list = List(elems.begin(), elems.end());
