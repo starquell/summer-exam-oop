@@ -11,6 +11,7 @@ namespace Ui {
 namespace exam{
 
 class ContainerSession;
+class SortSession;
 
 class MainWindow : public QMainWindow
 {
@@ -31,9 +32,14 @@ private slots:
 
     void on_gen();
 
+    void on_new_unsorted();
+
+    void on_sort();
+
 private:
     void closeEvent(QCloseEvent *event);
     ContainerSession *_containerSession;
+    SortSession *_sortSession;
     QMediaPlayer *_music;
     Ui::MainWindow *ui;
 };

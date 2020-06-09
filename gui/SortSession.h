@@ -4,7 +4,7 @@
 namespace Ui{
 class MainWindow;
 }
-
+namespace exam{
 enum class Sortings{
     Select,
     Quick,
@@ -19,15 +19,18 @@ enum class Sortings{
 
 class SortSession{
 public:
-    SortSession();
+    SortSession() = default;
+    SortSession(Ui::MainWindow* ui);
 
-    void createNewSession();
+    void createNewSession(const std::vector<int>& vec);
     void sort();
-
-
 private:
-    bool numeric;
+    void _display_sorted(const std::vector<int>& sorted);
+    void _display_unsorted();
     Ui::MainWindow* _ui;
     QStringListModel* _unsortedModel;
     QStringListModel* _sortedModel;
+    std::vector<int> _unsorted;
 };
+
+}

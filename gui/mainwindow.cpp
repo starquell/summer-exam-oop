@@ -4,8 +4,11 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <gui/containersession.hpp>
+#include <gui/SortSession.h>
 #include <AllExam.hpp>
 #include "ui_mainwindow.h"
+
+#include<vector>
 
 namespace exam{
 MainWindow::MainWindow(QWidget *parent) :
@@ -17,12 +20,15 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->InsertContainer,SIGNAL(clicked()),this,SLOT(on_insertContainer()));
     connect(ui->Erase, SIGNAL(clicked()), this, SLOT(on_Erase_clicked()));
     connect(ui->GenerateValue, SIGNAL(clicked()), this, SLOT(on_gen()));
+    connect(ui->GenArr, SIGNAL(clicked()), this, SLOT(on_new_unsorted()));
+    connect(ui->SortArr, SIGNAL(clicked()), this, SLOT(on_sort()));
     _music = new QMediaPlayer();
     _music->setVolume(70);
 
     _music->setMedia(QUrl("qrc:/sounds/Everlasting.mp3"));
     _music->play();
     _containerSession = new ContainerSession(ui);
+    _sortSession = new SortSession(ui);
     ui->Greeting->setPlainText("  Привіт, мене звати Алісочка. Рада вас бачити на літньому екзамені в таборі <<Совеня>>!"
                                " Тут ми пройдемося по алеї дерев різних видів, зіставимо списки членів табора "
                                "(списки також ріноманітні), відсортуємо книжки(як самотужки, так і разом з друзями "
@@ -78,6 +84,16 @@ void MainWindow::on_insertContainer(){
 
 void MainWindow::on_gen(){
     ui->ValueToInsert->setPlainText(QString::fromStdString(random<std::string>()));
+}
+
+void MainWindow::on_new_unsorted(){
+    auto size = ui->ContainerSize->value();
+    auto new_vec = random<std::vector<int>>(size, 0, 100000);
+    _sortSession->createNewSession(new_vec);
+}
+
+void MainWindow::on_sort(){
+    _sortSession->sort();
 }
 }//namespace exam
 

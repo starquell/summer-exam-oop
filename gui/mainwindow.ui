@@ -17,7 +17,7 @@
    <string notr="true">#MainWindow{
 background-color: transparent;
 
-border-image: url(:pics/Alisochka)
+border-image: url(:pics/Camp.jpg)
 }
 
 </string>
@@ -165,19 +165,19 @@ QTabBar::tab:hover{
 }</string>
               </property>
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="Sort">
                <attribute name="title">
                 <string>А давайте посортуємо</string>
                </attribute>
                <layout class="QGridLayout" name="gridLayout_8">
-                <item row="1" column="1">
-                 <widget class="QSpinBox" name="ContainerSize">
+                <item row="0" column="2" rowspan="7">
+                 <widget class="QListView" name="SortedContainer">
                   <property name="styleSheet">
-                   <string notr="true">#ContainerSize{
+                   <string notr="true">#SortedContainer{
 background-color: transparent;
-border-image: url(:pics/dialog.png);
+border-image: url(:pics/frame.png);
 background: none;
 border: none;
 background-repeat: none;
@@ -186,7 +186,20 @@ padding:10px;
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
+                <item row="0" column="1">
+                 <spacer name="verticalSpacer_9">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="5" column="1">
                  <widget class="QPushButton" name="SortArr">
                   <property name="styleSheet">
                    <string notr="true">QPushButton{
@@ -210,21 +223,7 @@ border-width:4px;
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="2" rowspan="8">
-                 <widget class="QListView" name="SortedContainer">
-                  <property name="styleSheet">
-                   <string notr="true">#SortedContainer{
-background-color: transparent;
-border-image: url(:pics/frame.png);
-background: none;
-border: none;
-background-repeat: none;
-padding:10px;
-}</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
+                <item row="2" column="1">
                  <widget class="QPushButton" name="GenArr">
                   <property name="styleSheet">
                    <string notr="true">QPushButton{
@@ -247,74 +246,7 @@ border-width:4px;
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="0" rowspan="8">
-                 <widget class="QListView" name="CurrentContainer">
-                  <property name="styleSheet">
-                   <string notr="true">#CurrentContainer{
-background-color: transparent;
-border-image: url(:pics/frame.png);
-background: none;
-border: none;
-background-repeat: none;
-padding:10px;
-}</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QComboBox" name="typeData">
-                  <property name="styleSheet">
-                   <string notr="true">#typeData
-{
-background-color: transparent;
-border-image: url(:pics/dialog.png);
-background: none;
-border: none;
-background-repeat: none;
-padding:10px;
-}</string>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>int</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>std::string</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>std::vector&lt;int&gt;</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Ministry</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>std::vector&lt;Ministry&gt;</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="7" column="1">
-                 <spacer name="verticalSpacer_8">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="5" column="1">
+                <item row="4" column="1">
                  <widget class="QComboBox" name="typeSort">
                   <property name="styleSheet">
                    <string notr="true">#typeSort{
@@ -368,8 +300,39 @@ padding:10px;
                   </item>
                  </widget>
                 </item>
-                <item row="0" column="1">
-                 <spacer name="verticalSpacer_9">
+                <item row="1" column="1">
+                 <widget class="QSpinBox" name="ContainerSize">
+                  <property name="styleSheet">
+                   <string notr="true">#ContainerSize{
+background-color: transparent;
+border-image: url(:pics/dialog.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                  <property name="maximum">
+                   <number>999999</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0" rowspan="7">
+                 <widget class="QListView" name="CurrentContainer">
+                  <property name="styleSheet">
+                   <string notr="true">#CurrentContainer{
+background-color: transparent;
+border-image: url(:pics/frame.png);
+background: none;
+border: none;
+background-repeat: none;
+padding:10px;
+}</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <spacer name="verticalSpacer_8">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -381,7 +344,7 @@ padding:10px;
                   </property>
                  </spacer>
                 </item>
-                <item row="4" column="1">
+                <item row="3" column="1">
                  <spacer name="verticalSpacer_10">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
