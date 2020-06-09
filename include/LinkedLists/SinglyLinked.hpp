@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../../src/LinkedLists/Iterators/CyclicForwardIterator.hpp"
+#include "../../src/LinkedLists/Iterators/ListForwardIterator.hpp"
 
 namespace exam::lists {
 
     template <typename T>
-    class CyclicLinkedList {
+    class SinglyLinkedList {
         struct SLLNode {
             T _data;
             SLLNode* _next = nullptr;
@@ -18,20 +18,20 @@ namespace exam::lists {
         size_t _size = 0;
 
     public:
-        using iterator = detail::CyclicForwardIterator<SLLNode*, T, CyclicLinkedList>;
+        using iterator = detail::ListForwardIterator<SLLNode*, T, SinglyLinkedList>;
 
         using value_type = T;
 
-        explicit CyclicLinkedList() = default;
+        explicit SinglyLinkedList() = default;
 
-        CyclicLinkedList(std::initializer_list<T> elems);
+        SinglyLinkedList(std::initializer_list<T> elems);
 
         template <typename Iter>
-        CyclicLinkedList(Iter begin, Iter end);
+        SinglyLinkedList(Iter begin, Iter end);
 
-        CyclicLinkedList(const CyclicLinkedList<T>& other);
+        SinglyLinkedList(const SinglyLinkedList<T>& other);
 
-        CyclicLinkedList& operator= (const CyclicLinkedList& other);
+        SinglyLinkedList& operator= (const SinglyLinkedList& other);
 
         iterator begin();
 
@@ -45,9 +45,9 @@ namespace exam::lists {
         [[nodiscard]]
         size_t size() const;
 
-        ~CyclicLinkedList();
+        ~SinglyLinkedList();
     };
 
 }
 
-#include "../../src/LinkedLists/Cyclic.tpp"
+#include "../../src/LinkedLists/SinglyLinked.tpp"

@@ -3,13 +3,13 @@
 namespace exam::lists {
 
     template <typename T>
-    typename DoubleLinkedList<T>::Iterator DoubleLinkedList<T>::begin() {
-        return Iterator(_head);
+    typename DoubleLinkedList<T>::iterator DoubleLinkedList<T>::begin() {
+        return iterator(_head);
     }
 
     template <typename T>
-    typename DoubleLinkedList<T>::Iterator DoubleLinkedList<T>::end() {
-        return Iterator(_tail, true);
+    typename DoubleLinkedList<T>::iterator DoubleLinkedList<T>::end() {
+        return iterator(_tail, true);
     }
 
     template <typename T>
@@ -54,7 +54,7 @@ namespace exam::lists {
         return *this;
     }
     template <typename T>
-    void DoubleLinkedList<T>::insert(const T& data, Iterator iterator) {
+    void DoubleLinkedList<T>::insert(const T& data, iterator iterator) {
         DLLNode* inputNode = new DLLNode(data);
         if (iterator == begin()) {
             if (_head) {

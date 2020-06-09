@@ -33,6 +33,7 @@ namespace exam::sort {
                             ExecutionPolicy policy,
                             size_t bucketsNumber,
                             Comp comp = std::less<>{}) {
+        static_assert(std::is_arithmetic_v<typename Iter::value_type>);
         if (policy == ExecutionPolicy::Default) {
             detail::default_bucket(begin, end, bucketsNumber, comp);
         }

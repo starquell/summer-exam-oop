@@ -12,9 +12,11 @@
 #include "Sorts/Merge.hpp"
 #include "Sorts/Radix.hpp"
 #include "Sorts/Selection.hpp"
+#include "Sorts/Counting.hpp"
 
 #include "LinkedLists/Cyclic.hpp"
 #include "LinkedLists/DoubleLinked.hpp"
+#include "LinkedLists/SinglyLinked.hpp.hpp"
 
 #include "Subjects/Book.hpp"
 #include "Subjects/Organization.hpp"

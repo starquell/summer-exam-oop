@@ -2,6 +2,7 @@
 
 #include "../include/LinkedLists/DoubleLinked.hpp"
 #include "../include/LinkedLists/Cyclic.hpp"
+#include "../include/LinkedLists/SinglyLinked.hpp"
 
 using namespace exam::lists;
 
@@ -93,11 +94,14 @@ TEST_CASE("DLL") {
     }
 }
 
-TEST_CASE("Cyclic SLL") {
+SCENARIO_TEMPLATE("Singly linked lists", List,
+                  SinglyLinkedList<int>,
+                  CyclicLinkedList<int>)
+{
     std::array elems = {1, 4, 103, 2, 24};
 
     SUBCASE("Constructor from init list") {
-        auto list = CyclicLinkedList<int>({1,4,103,2,24});
+        auto list = List({1,4,103,2,24});
         auto iterator = list.begin();
 
         REQUIRE(list.size() == 5);
@@ -106,11 +110,10 @@ TEST_CASE("Cyclic SLL") {
         REQUIRE(*(iterator++) == 103);
         REQUIRE(*(iterator++)== 2);
         REQUIRE(*(iterator++) == 24);
-        REQUIRE(*(iterator++) == 1);
     }
 
     SUBCASE("Constructor from init list") {
-        auto list = CyclicLinkedList<int>(elems.begin(), elems.end());
+        auto list = List(elems.begin(), elems.end());
         auto iterator = list.begin();
 
         REQUIRE(list.size() == 5);
@@ -119,20 +122,19 @@ TEST_CASE("Cyclic SLL") {
         REQUIRE(*(iterator++) == 103);
         REQUIRE(*(iterator++)== 2);
         REQUIRE(*(iterator++) == 24);
-        REQUIRE(*(iterator++) == 1);
     }
 
-    auto list = CyclicLinkedList<int>(elems.begin(), elems.end());
+    auto list = List(elems.begin(), elems.end());
 
     SUBCASE("Copy constructor") {
-        auto copyList = CyclicLinkedList<int>(list);
+        auto copyList = List(list);
 
         REQUIRE(list.size() == 5);
         std::equal(copyList.begin(), copyList.end(), elems.begin());
     }
 
     SUBCASE("Operator = ") {
-        auto copyList = CyclicLinkedList<int>(elems.begin(), (elems.begin()+2));
+        auto copyList = List(elems.begin(), (elems.begin()+2));
         copyList = list;
 
         REQUIRE(list.size() == 5);
@@ -191,5 +193,21 @@ TEST_CASE("Cyclic SLL") {
         REQUIRE(list.size() == 2);
         REQUIRE(*(list.begin()) == 4);
         REQUIRE(*(++list.begin()) == 2);
+    }
+}
+
+TEST_CASE("Cyclic list") {
+    SUBCASE("Check cyclic") {
+        auto list = CyclicLinkedList<int>({1,4,103,2,24});
+        auto iterator = list.begin();
+
+            REQUIRE(list.size() == 5);
+            for (int i = 0; i < 2; i++) {
+                REQUIRE(*(iterator++) == 1);
+                REQUIRE(*(iterator++) == 4);
+                REQUIRE(*(iterator++) == 103);
+                REQUIRE(*(iterator++) == 2);
+                REQUIRE(*(iterator++) == 24);
+            }
     }
 }
