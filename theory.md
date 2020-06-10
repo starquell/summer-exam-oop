@@ -1,4 +1,4 @@
-###Теоретична частина екзамену
+#Теоретична частина екзамену
 
 #### Питання 1
 
@@ -92,4 +92,4 @@ class BinarySearchTree {
 
 ####Class diagram
 
-![Diagram](https://imgur.com/a/rQVPx6f)
+![Diagram](https://i.imgur.com/XPavi9i.png)
